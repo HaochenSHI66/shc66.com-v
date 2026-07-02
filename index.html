@@ -6,7 +6,7 @@
 <title>SHI Haochen — multimodal AI research, PolyU</title>
 <meta name="description" content="SHI Haochen — CS undergrad at PolyU (GPA 3.81, Dean’s List). Multimodal AI research, LLM multi-agent systems, benchmark design. Two papers under review at ACL ARR.">
 <link rel="canonical" href="https://shc66.com/">
-<meta name="theme-color" content="#EEF7FF">
+<meta name="theme-color" content="#14201E">
 <link rel="icon" type="image/png" href="assets/avatar-224.png">
 
 <!-- Fonts: Newsreader (serif), Inter Tight (sans), JetBrains Mono (mono) -->
@@ -21,22 +21,27 @@
 
 <style>
 /* ============================================
-   PALETTE — clear-sky academic
+   PALETTE — porcelain, ink, restrained metal
    ============================================ */
 :root {
-  --bg:          #EEF7FF;
-  --bg-2:        #F8FCFF;
+  --bg:          #F3F5F1;
+  --bg-2:        #FCFDFB;
   --surface:     #FFFFFF;
-  --text:        #172033;
-  --text-dim:    #344054;
-  --text-muted:  #64748B;
-  --border:      #D7E6F5;
-  --accent:      #0E7490;
-  --accent-deep: #155E75;
-  --accent-soft: rgba(14,116,144,0.10);
-  --accent-tap:  rgba(14,116,144,0.16);
-  --nav-bg:      rgba(238,247,255,0.88);
-  --nav-bg-open: #F8FCFF;
+  --text:        #181C1B;
+  --text-dim:    #36423F;
+  --text-muted:  #68736E;
+  --border:      #DCE2DA;
+  --accent:      #0F6B5F;
+  --accent-deep: #0A403A;
+  --accent-soft: rgba(15,107,95,0.10);
+  --accent-tap:  rgba(15,107,95,0.15);
+  --metal:       #A37B4E;
+  --metal-soft:  rgba(163,123,78,0.20);
+  --nav-bg:      rgba(20,32,30,0.96);
+  --nav-bg-open: #14201E;
+  --nav-text:    #F7FAF8;
+  --nav-muted:   #C5D0CB;
+  --nav-border:  rgba(247,250,248,0.14);
   --radius:      6px;
   --radius-lg:   12px;
   --font-serif:  'Newsreader', Georgia, serif;
@@ -73,7 +78,7 @@ html {
 body {
   font-family: var(--font-sans);
   font-size: 17px;
-  background: var(--bg);
+  background: linear-gradient(180deg, #F7F8F4 0%, var(--bg) 52%, #EDF0EC 100%);
   color: var(--text);
   line-height: 1.65;
   overflow-x: hidden;
@@ -129,14 +134,14 @@ nav {
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   background: var(--nav-bg);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--nav-border);
 }
 
 .nav-logo {
   font-family: var(--font-serif);
   font-size: 1.05rem;
   font-weight: 500;
-  color: var(--text);
+  color: var(--nav-text);
   letter-spacing: 0;
 }
 
@@ -151,11 +156,11 @@ nav {
   font-family: var(--font-sans);
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--text-dim);
+  color: var(--nav-muted);
   transition: color 0.2s ease;
 }
 
-.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover { color: var(--nav-text); }
 
 .nav-hamburger {
   display: none;
@@ -168,7 +173,7 @@ nav {
 }
 .nav-hamburger span {
   width: 20px; height: 1.5px;
-  background: var(--text);
+  background: var(--nav-text);
 }
 
 /* ============================================
@@ -238,7 +243,7 @@ h2.section-title::after {
   bottom: 0;
   width: 72px;
   height: 1px;
-  background: var(--accent);
+  background: var(--metal);
   transform: translateX(-50%) scaleX(1);
   transform-origin: center;
   transition: transform 600ms cubic-bezier(.76,0,.24,1) 200ms;
@@ -252,7 +257,7 @@ body.has-gsap h2.section-title.is-visible::after { transform: translateX(-50%) s
 .reveal-up {
   opacity: 1;
   transform: none;
-  transition: opacity 600ms ease-out, transform 600ms ease-out;
+  transition: opacity 420ms ease-out, transform 420ms ease-out;
   transition-delay: var(--rd, 0ms);
 }
 body.has-gsap .reveal-up {
@@ -291,8 +296,9 @@ body.has-gsap .reveal-up.is-visible {
   border-radius: 50%;
   margin: 0 auto 22px;
   display: block;
-  border: 1px solid var(--border);
+  border: 1px solid var(--metal-soft);
   background: var(--bg-2);
+  box-shadow: 0 0 0 6px rgba(255,255,255,0.72);
   object-fit: cover;
 }
 
@@ -453,7 +459,7 @@ body.has-gsap.is-loaded .hero-name-cn { opacity: 1; transform: none; }
 }
 
 .quick-facts .dot {
-  color: var(--accent);
+  color: var(--metal);
   margin: 0 10px;
 }
 
@@ -863,7 +869,7 @@ main { position: relative; }
   bottom: 0;
   width: 72px;
   height: 1px;
-  background: var(--accent);
+  background: var(--metal);
   transform: translateX(-50%) scaleX(1);
   transform-origin: center;
   transition: transform 600ms cubic-bezier(.76,0,.24,1) 200ms;
@@ -950,7 +956,7 @@ footer {
     gap: 16px;
     padding: 20px 24px;
     background: var(--nav-bg-open);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--nav-border);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
   }
@@ -1329,6 +1335,9 @@ footer {
           behavior: prefersReduced ? 'auto' : 'smooth',
           block: 'start'
         });
+        if (window.history && window.history.pushState) {
+          window.history.pushState(null, '', `#${targetId}`);
+        }
       });
     });
   })();
@@ -1400,6 +1409,28 @@ footer {
         onEnter: () => el.classList.add('is-visible'),
         once: true,
       });
+    });
+
+    const revealVisibleNow = () => {
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      document.querySelectorAll('h2.section-title, .contact-inner h2, .reveal-up').forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < viewportHeight * 0.96 && rect.bottom > 0) {
+          el.classList.add('is-visible');
+        }
+      });
+    };
+
+    const revealAfterAnchorJump = () => {
+      [180, 520, 920].forEach((delay) => {
+        window.setTimeout(revealVisibleNow, delay);
+      });
+    };
+
+    revealVisibleNow();
+    window.addEventListener('hashchange', revealAfterAnchorJump);
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', revealAfterAnchorJump);
     });
   });
 </script>
