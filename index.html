@@ -6,7 +6,7 @@
 <title>SHI Haochen — multimodal AI research, PolyU</title>
 <meta name="description" content="SHI Haochen — CS undergrad at PolyU (GPA 3.81, Dean’s List). Multimodal AI research, LLM multi-agent systems, benchmark design. Two papers under review at ACL ARR.">
 <link rel="canonical" href="https://shc66.com/">
-<meta name="theme-color" content="#F3EFE6">
+<meta name="theme-color" content="#EEF7FF">
 <link rel="icon" type="image/png" href="assets/avatar-224.png">
 
 <!-- Fonts: Newsreader (serif), Inter Tight (sans), JetBrains Mono (mono) -->
@@ -21,19 +21,22 @@
 
 <style>
 /* ============================================
-   PALETTE — single muted-teal accent, locked
+   PALETTE — clear-sky academic
    ============================================ */
 :root {
-  --bg:          #F3EFE6;
-  --bg-2:        #FBF8F1;
+  --bg:          #EEF7FF;
+  --bg-2:        #F8FCFF;
   --surface:     #FFFFFF;
-  --text:        #1C1917;
-  --text-dim:    #44403C;
-  --text-muted:  #5C5853;
-  --border:      #E7E0D2;
-  --accent:      #115E59;
-  --accent-deep: #0B3E3A;
-  --accent-soft: rgba(17,94,89,0.10);
+  --text:        #172033;
+  --text-dim:    #344054;
+  --text-muted:  #64748B;
+  --border:      #D7E6F5;
+  --accent:      #0E7490;
+  --accent-deep: #155E75;
+  --accent-soft: rgba(14,116,144,0.10);
+  --accent-tap:  rgba(14,116,144,0.16);
+  --nav-bg:      rgba(238,247,255,0.88);
+  --nav-bg-open: #F8FCFF;
   --radius:      6px;
   --radius-lg:   12px;
   --font-serif:  'Newsreader', Georgia, serif;
@@ -85,7 +88,7 @@ body {
 a { color: inherit; text-decoration: none; }
 a, button {
   touch-action: manipulation;
-  -webkit-tap-highlight-color: rgba(17,94,89,0.14);
+  -webkit-tap-highlight-color: var(--accent-tap);
 }
 
 /* Global focus styles */
@@ -125,7 +128,7 @@ nav {
   align-items: baseline;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  background: rgba(243,239,230,0.85);
+  background: var(--nav-bg);
   border-bottom: 1px solid var(--border);
 }
 
@@ -220,6 +223,7 @@ h2.section-title {
   position: relative;
   padding-bottom: 22px;
   text-align: center;
+  text-wrap: balance;
 }
 
 h2.section-title em {
@@ -335,6 +339,7 @@ body.has-gsap .reveal-up.is-visible {
   margin: 8px auto 0;
   line-height: 1.35;
   max-width: 780px;
+  text-wrap: balance;
 }
 
 .hero-subtext {
@@ -344,6 +349,7 @@ body.has-gsap .reveal-up.is-visible {
   margin: 24px auto 0;
   max-width: 640px;
   line-height: 1.6;
+  text-wrap: pretty;
 }
 
 .hero-cta {
@@ -443,6 +449,7 @@ body.has-gsap.is-loaded .hero-name-cn { opacity: 1; transform: none; }
   position: relative;
   z-index: 2;
   text-align: center;
+  text-wrap: pretty;
 }
 
 .quick-facts .dot {
@@ -847,6 +854,7 @@ main { position: relative; }
   position: relative;
   padding-bottom: 20px;
   text-align: center;
+  text-wrap: balance;
 }
 .contact-inner h2::after {
   content: '';
@@ -930,6 +938,7 @@ footer {
 
 @media (max-width: 767px) {
   .nav-links { display: none; }
+  body.nav-open nav { background: var(--nav-bg-open); }
   body.nav-open .nav-links {
     display: flex;
     flex-direction: column;
@@ -940,7 +949,7 @@ footer {
     z-index: 99;
     gap: 16px;
     padding: 20px 24px;
-    background: rgba(243,239,230,0.97);
+    background: var(--nav-bg-open);
     border-bottom: 1px solid var(--border);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
