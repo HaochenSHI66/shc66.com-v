@@ -3,43 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Haochen Shi — Multimodal AI Researcher · PolyU</title>
-<meta name="description" content="Haochen Shi — CS undergrad at PolyU (GPA 3.85), URIS-funded multimodal AI researcher, 2 papers under review at ACM MM 2026 & KDD 2026.">
+<title>SHI Haochen — multimodal AI research, PolyU</title>
+<meta name="description" content="SHI Haochen — CS undergrad at PolyU (GPA 3.81, Dean’s List). Multimodal AI research, LLM multi-agent systems, benchmark design. Two papers under review at ACL ARR.">
+<link rel="canonical" href="https://shc66.com/">
+<meta name="theme-color" content="#F3EFE6">
+<link rel="icon" type="image/png" href="assets/avatar-224.png">
 
-<!-- Fonts -->
+<!-- Fonts: Newsreader (serif), Inter Tight (sans), JetBrains Mono (mono) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-<!-- GSAP (deferred — does not block render) -->
+<!-- GSAP for scroll-driven motion -->
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js" defer></script>
 
 <style>
 /* ============================================
-   CSS CUSTOM PROPERTIES — LIGHT ACADEMIC
+   PALETTE — single muted-teal accent, locked
    ============================================ */
 :root {
-  --bg:          #F8FAFC;
-  --bg2:         #FFFFFF;
+  --bg:          #F3EFE6;
+  --bg-2:        #FBF8F1;
   --surface:     #FFFFFF;
-  --border:      #E2E8F0;
-  --border-soft: #F1F5F9;
-  --text:        #0F172A;
-  --text-dim:    #475569;
-  --text-muted:  #94A3B8;
-  --accent:      #2563EB;
-  --accent2:     #6366F1;
-  --accent3:     #10B981;
-  --accent-soft: rgba(37,99,235,0.08);
-  --accent2-soft:rgba(99,102,241,0.08);
-  --shadow-sm:   0 1px 3px rgba(15,23,42,0.08), 0 1px 2px rgba(15,23,42,0.06);
-  --shadow-md:   0 4px 16px rgba(15,23,42,0.10), 0 2px 6px rgba(15,23,42,0.06);
-  --shadow-lg:   0 10px 40px rgba(15,23,42,0.12), 0 4px 12px rgba(15,23,42,0.08);
-  --font-main:   'Space Grotesk', sans-serif;
-  --font-mono:   'JetBrains Mono', monospace;
-  --radius:      12px;
-  --radius-sm:   8px;
+  --text:        #1C1917;
+  --text-dim:    #44403C;
+  --text-muted:  #5C5853;
+  --border:      #E7E0D2;
+  --accent:      #115E59;
+  --accent-deep: #0B3E3A;
+  --accent-soft: rgba(17,94,89,0.10);
+  --radius:      6px;
+  --radius-lg:   12px;
+  --font-serif:  'Newsreader', Georgia, serif;
+  --font-sans:   'Inter Tight', system-ui, -apple-system, sans-serif;
+  --font-mono:   'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ============================================
+   REDUCED MOTION — kill all transforms / animations
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .word-inner { transform: none !important; }
+  .reveal-up { opacity: 1 !important; transform: none !important; }
+  .section-title::after { transform: scaleX(1) !important; }
 }
 
 /* ============================================
@@ -49,1728 +63,1337 @@
 
 html {
   scroll-behavior: smooth;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border) var(--bg);
+  scroll-padding-top: 80px;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  font-family: var(--font-main);
+  font-family: var(--font-sans);
+  font-size: 17px;
   background: var(--bg);
   color: var(--text);
+  line-height: 1.65;
   overflow-x: hidden;
-  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Dot-grid background — lightweight, no JS */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image: radial-gradient(circle, #CBD5E1 1px, transparent 1px);
-  background-size: 28px 28px;
-  opacity: 0.55;
-}
-
-::selection { background: var(--accent); color: #fff; }
-
-::-webkit-scrollbar { width: 5px; }
+::selection { background: var(--accent); color: var(--bg); }
+::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
 a { color: inherit; text-decoration: none; }
-
-/* Desktop custom cursor — pointer devices only */
-@media (pointer: fine) {
-  body { cursor: none; }
-  .cursor {
-    position: fixed;
-    width: 18px;
-    height: 18px;
-    border: 1.5px solid var(--accent);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 99999;
-    transition: transform 0.15s ease, border-color 0.2s, background 0.2s;
-    mix-blend-mode: multiply;
-  }
-  .cursor-dot {
-    position: fixed;
-    width: 5px;
-    height: 5px;
-    background: var(--accent);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 99999;
-    mix-blend-mode: multiply;
-  }
-  .cursor.hover {
-    transform: scale(2.5);
-    background: var(--accent-soft);
-    border-color: var(--accent2);
-  }
-  a, button, .project-card, .skill-chip { cursor: none; }
+a, button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(17,94,89,0.14);
 }
 
+/* Global focus styles */
+:focus { outline: none; }
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 1000;
+  padding: 9px 12px;
+  background: var(--surface);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  transform: translateY(-150%);
+  transition: transform 180ms ease;
+}
+.skip-link:focus-visible { transform: translateY(0); }
+
 /* ============================================
-   NAVIGATION
+   NAVIGATION — quiet
    ============================================ */
 nav {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1000;
-  padding: 16px 48px;
+  z-index: 100;
+  padding: 18px 56px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  background: rgba(248,250,252,0.88);
+  align-items: baseline;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background: rgba(243,239,230,0.85);
   border-bottom: 1px solid var(--border);
-  animation: navSlideDown 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s both;
-}
-
-@keyframes navSlideDown {
-  from { transform: translateY(-100%); opacity: 0; }
-  to   { transform: translateY(0);     opacity: 1; }
 }
 
 .nav-logo {
-  font-family: var(--font-mono);
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 500;
   color: var(--text);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.nav-logo-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-  display: inline-block;
+  letter-spacing: 0;
 }
 
 .nav-links {
   display: flex;
-  gap: 36px;
+  gap: 28px;
   list-style: none;
-  align-items: center;
+  align-items: baseline;
 }
 
 .nav-links a {
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
   font-weight: 500;
   color: var(--text-dim);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  transition: color 0.2s;
+  transition: color 0.2s ease;
 }
 
 .nav-links a:hover { color: var(--accent); }
 
-.nav-cv {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding: 7px 18px;
-  background: var(--accent);
-  color: #fff !important;
-  border-radius: var(--radius-sm);
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s !important;
-  letter-spacing: 0.05em;
-}
-
-.nav-cv:hover {
-  background: #1D4ED8 !important;
-  color: #fff !important;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(37,99,235,0.3);
-}
-
-/* Mobile nav */
 .nav-hamburger {
   display: none;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
   background: none;
   border: none;
   cursor: pointer;
   padding: 4px;
 }
 .nav-hamburger span {
-  width: 22px;
-  height: 2px;
+  width: 20px; height: 1.5px;
   background: var(--text);
-  border-radius: 2px;
-  transition: all 0.3s;
 }
 
 /* ============================================
-   SECTIONS COMMON
+   KINETIC TYPOGRAPHY — split-text reveal
    ============================================ */
-section {
-  position: relative;
-  z-index: 1;
-  padding: 100px 80px;
+.word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  line-height: 1.08;
+  padding-bottom: 0.14em;
+}
+.word-inner {
+  display: inline-block;
+  transform: none;
+  transform-origin: left top;
+  transition: transform 900ms cubic-bezier(.16,1,.3,1);
+}
+/* Hide initial state only when GSAP is confirmed live */
+body.has-gsap .word-inner {
+  transform: translateY(110%) skewY(6deg);
+  will-change: transform;
+}
+body.has-gsap.is-loaded .word-inner {
+  transform: translateY(0) skewY(0);
 }
 
+/* Stagger via inline custom-property --d */
+.word-inner { transition-delay: var(--d, 0ms); }
+
+/* ============================================
+   SECTION TITLE — kinetic + underline draw
+   ============================================ */
 .section-label {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  color: var(--accent);
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.section-label::before {
-  content: '';
-  width: 28px;
-  height: 1.5px;
-  background: var(--accent);
-  border-radius: 2px;
-}
-
-.gradient-text {
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ============================================
-   HERO SECTION
-   ============================================ */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 80px;
-  padding-top: 80px;
-  position: relative;
-}
-
-/* Availability badge */
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
-  background: var(--accent-soft);
-  border: 1px solid rgba(37,99,235,0.2);
-  border-radius: 100px;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--accent);
-  letter-spacing: 0.03em;
-  margin-bottom: 28px;
-  width: fit-content;
-}
-
-.hero-badge-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent3);
-  animation: pulse-dot 2s ease-in-out infinite;
-}
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.8); }
-}
-
-.hero-name {
-  font-size: clamp(3.5rem, 9vw, 7.5rem);
-  font-weight: 700;
-  line-height: 1.0;
-  letter-spacing: -0.03em;
-  color: var(--text);
-  margin-bottom: 8px;
-}
-
-.hero-name-cn {
-  font-size: clamp(1.2rem, 3vw, 2rem);
-  font-weight: 300;
-  color: var(--text-muted);
-  margin-bottom: 20px;
-  font-family: var(--font-mono);
-}
-
-.hero-subtitle {
-  font-size: clamp(1rem, 2vw, 1.3rem);
-  font-weight: 400;
-  color: var(--text-dim);
-  margin-bottom: 48px;
-  line-height: 1.6;
-  max-width: 600px;
-}
-
-.hero-subtitle strong {
-  color: var(--text);
-  font-weight: 600;
-}
-
-/* Stats */
-.hero-stats {
-  display: flex;
-  gap: 0;
-  margin-bottom: 48px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
-  width: fit-content;
-  overflow: hidden;
-}
-
-.hero-stat {
-  padding: 20px 32px;
-  border-right: 1px solid var(--border);
-  text-align: center;
-}
-
-.hero-stat:last-child { border-right: none; }
-
-.hero-stat-value {
-  font-size: 1.9rem;
-  font-weight: 700;
-  color: var(--accent);
-  line-height: 1.1;
-  font-family: var(--font-mono);
-}
-
-.hero-stat-label {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
   font-weight: 500;
   color: var(--text-muted);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  margin-top: 4px;
-}
-
-/* CTAs */
-.hero-cta {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 13px 28px;
-  background: var(--accent);
-  color: #fff;
-  border-radius: var(--radius-sm);
-  border: 1.5px solid var(--accent);
-  transition: all 0.2s ease;
-  letter-spacing: 0.03em;
-}
-
-.btn-primary:hover {
-  background: #1D4ED8;
-  border-color: #1D4ED8;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(37,99,235,0.3);
-}
-
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 13px 28px;
-  background: transparent;
-  color: var(--text);
-  border-radius: var(--radius-sm);
-  border: 1.5px solid var(--border);
-  transition: all 0.2s ease;
-  letter-spacing: 0.03em;
-}
-
-.btn-secondary:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
-}
-
-.btn-text {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--text-dim);
-  padding: 13px 4px;
-  transition: color 0.2s;
-  letter-spacing: 0.03em;
-}
-
-.btn-text:hover { color: var(--accent); }
-
-/* Scroll indicator */
-.scroll-indicator {
-  position: absolute;
-  bottom: 36px;
-  left: 80px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.scroll-indicator span {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--text-muted);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-.scroll-line {
-  width: 40px;
-  height: 1px;
-  background: linear-gradient(to right, var(--accent), transparent);
-  animation: scroll-pulse 2.5s ease-in-out infinite;
-}
-
-@keyframes scroll-pulse {
-  0%, 100% { opacity: 1; transform: scaleX(1); }
-  50% { opacity: 0.3; transform: scaleX(0.6); }
-}
-
-/* ============================================
-   PUBLICATIONS TICKER
-   ============================================ */
-.ticker-wrapper {
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  background: var(--surface);
-  padding: 0;
-}
-
-.ticker-content {
-  display: inline-flex;
-  animation: ticker 35s linear infinite;
-  white-space: nowrap;
-  padding: 14px 0;
-}
-
-.ticker-content:hover { animation-play-state: paused; }
-
-.ticker-item {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--text-dim);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 0 40px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.ticker-item::after {
-  content: '·';
-  color: var(--accent);
-  font-size: 1.2rem;
-}
-
-.ticker-item .ticker-highlight {
-  color: var(--accent);
-  font-weight: 700;
-}
-
-@keyframes ticker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-/* ============================================
-   ABOUT SECTION
-   ============================================ */
-#about {
-  background: var(--surface);
-  border-top: 1px solid var(--border-soft);
-}
-
-.about-content {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 80px;
-  align-items: start;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.about-text h2 {
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  font-weight: 700;
-  margin-bottom: 24px;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-}
-
-.about-text p {
-  font-size: 1.05rem;
-  line-height: 1.8;
-  color: var(--text-dim);
   margin-bottom: 18px;
 }
 
-.about-text p strong {
+h2.section-title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  line-height: 1.08;
+  letter-spacing: 0;
   color: var(--text);
-  font-weight: 600;
+  margin-bottom: 40px;
+  position: relative;
+  padding-bottom: 22px;
+  text-align: center;
 }
 
-.about-highlights {
-  margin-top: 28px;
+h2.section-title em {
+  font-style: italic;
+  font-weight: 500;
+}
+
+h2.section-title::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 72px;
+  height: 1px;
+  background: var(--accent);
+  transform: translateX(-50%) scaleX(1);
+  transform-origin: center;
+  transition: transform 600ms cubic-bezier(.76,0,.24,1) 200ms;
+}
+body.has-gsap h2.section-title::after { transform: translateX(-50%) scaleX(0); }
+body.has-gsap h2.section-title.is-visible::after { transform: translateX(-50%) scaleX(1); }
+
+/* ============================================
+   REVEAL — list items micro-arrival
+   ============================================ */
+.reveal-up {
+  opacity: 1;
+  transform: none;
+  transition: opacity 600ms ease-out, transform 600ms ease-out;
+  transition-delay: var(--rd, 0ms);
+}
+body.has-gsap .reveal-up {
+  opacity: 0;
+  transform: translateY(20px);
+}
+body.has-gsap .reveal-up.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============================================
+   HERO — typography-only, centered column
+   ============================================ */
+.hero {
+  padding: 140px 56px 80px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  min-height: 88dvh;
+  justify-content: center;
 }
 
-.about-highlight {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 14px 18px;
-  background: var(--bg);
+.hero-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-avatar {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  margin: 0 auto 22px;
+  display: block;
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-size: 0.92rem;
-  color: var(--text-dim);
-  line-height: 1.5;
+  background: var(--bg-2);
+  object-fit: cover;
 }
 
-.about-highlight-icon {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  margin-top: 1px;
-}
-
-.about-side {
+.hero-name {
+  font-family: var(--font-serif);
+  font-size: clamp(3.2rem, 7.4vw, 5.6rem);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: 0;
+  color: var(--text);
+  margin-bottom: 12px;
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding-top: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.32em;
 }
 
-.about-card {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 24px;
-  transition: box-shadow 0.2s, border-color 0.2s;
+.hero-name .surname {
+  font-style: normal;
+  letter-spacing: 0.04em;
 }
 
-.about-card:hover {
-  box-shadow: var(--shadow-md);
-  border-color: rgba(37,99,235,0.2);
+.hero-name em {
+  font-style: italic;
+  font-weight: 500;
 }
 
-.about-card-label {
+.hero-name-cn {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 600;
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.18em;
+  margin-bottom: 28px;
+  display: block;
+}
+
+.hero-role {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  font-weight: 400;
+  color: var(--text-dim);
+  margin: 8px auto 0;
+  line-height: 1.35;
+  max-width: 780px;
+}
+
+.hero-subtext {
+  font-family: var(--font-sans);
+  font-size: 1.075rem;
+  color: var(--text-dim);
+  margin: 24px auto 0;
+  max-width: 640px;
+  line-height: 1.6;
+}
+
+.hero-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 44px;
+  flex-wrap: wrap;
+}
+
+/* Slower, staggered arrival for role + subtext + cta */
+.hero-role,
+.hero-subtext,
+.hero-cta {
+  opacity: 1;
+  transform: none;
+  transition: opacity 700ms ease-out, transform 700ms ease-out;
+}
+body.has-gsap .hero-role,
+body.has-gsap .hero-subtext,
+body.has-gsap .hero-cta {
+  opacity: 0;
+  transform: translateY(14px);
+}
+body.has-gsap.is-loaded .hero-role    { opacity: 1; transform: none; transition-delay: 520ms; }
+body.has-gsap.is-loaded .hero-subtext { opacity: 1; transform: none; transition-delay: 660ms; }
+body.has-gsap.is-loaded .hero-cta     { opacity: 1; transform: none; transition-delay: 800ms; }
+
+.hero-name-cn {
+  opacity: 1;
+  transform: none;
+  transition: opacity 700ms ease-out 380ms, transform 700ms ease-out 380ms;
+}
+body.has-gsap .hero-name-cn { opacity: 0; transform: translateY(8px); }
+body.has-gsap.is-loaded .hero-name-cn { opacity: 1; transform: none; }
+
+/* CTA button — accent fill sweep on hover */
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 500;
+  padding: 12px 24px;
+  background: transparent;
   color: var(--accent);
-  letter-spacing: 0.2em;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 300ms ease, transform 0.15s ease;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 300ms cubic-bezier(.76,0,.24,1);
+  z-index: -1;
+}
+.btn-primary:hover { color: var(--bg); }
+.btn-primary:hover::before { transform: scaleX(1); }
+.btn-primary:active { transform: scale(0.97); }
+
+.btn-text {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  padding-bottom: 2px;
+  transition: color 250ms ease, background-size 250ms ease;
+}
+.btn-text:hover {
+  color: var(--accent);
+  background-size: 100% 1px;
+}
+
+/* Quick facts strip under hero */
+.quick-facts {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  padding: 22px 56px 60px;
+  max-width: 920px;
+  margin: 0 auto;
+  line-height: 1.5;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.quick-facts .dot {
+  color: var(--accent);
+  margin: 0 10px;
+}
+
+/* ============================================
+   SECTIONS — normal flow, chapter rhythm
+   ============================================ */
+main { position: relative; }
+
+.panel {
+  position: relative;
+  padding: 96px 56px 112px;
+  background: var(--bg);
+  scroll-margin-top: 80px;
+}
+
+/* Alternate panel backgrounds for rhythm */
+#about    { background: var(--bg-2); }
+#research { background: var(--bg);   }
+#projects { background: var(--bg-2); }
+#skills   { background: var(--bg);   }
+#contact  { background: var(--bg-2); }
+
+/* Centered section label */
+.section-label {
+  text-align: center;
+}
+
+/* Top divider per section */
+.panel + .panel { border-top: 1px solid var(--border); }
+
+/* ============================================
+   ABOUT
+   ============================================ */
+.about-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-prose {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--text-dim);
+  line-height: 1.65;
+  max-width: 65ch;
+  margin: 0 auto;
+}
+
+.about-prose p { margin-bottom: 16px; }
+.about-prose p:last-child { margin-bottom: 0; }
+.about-prose strong { color: var(--text); font-weight: 600; }
+.about-prose em { font-style: italic; }
+
+.about-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 56px;
+  padding-top: 36px;
+  border-top: 1px solid var(--border);
+}
+
+.about-list-item {
+  text-align: center;
+}
+
+.about-list-item .label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   margin-bottom: 10px;
 }
 
-.about-card h4 {
-  font-size: 0.95rem;
-  font-weight: 600;
+.about-list-item .text {
+  font-family: var(--font-serif);
+  font-size: 1rem;
   color: var(--text);
-  margin-bottom: 4px;
-}
-
-.about-card p {
-  font-size: 0.85rem;
-  color: var(--text-dim);
   line-height: 1.5;
 }
 
 /* ============================================
-   RESEARCH SECTION
+   RESEARCH
    ============================================ */
-#research {
-  background: var(--bg);
+.research-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.research-inner {
-  max-width: 900px;
+.research-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.research-item {
+  display: block;
+  padding: 40px 0 44px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.research-item:last-child { border-bottom: 1px solid var(--border); }
+
+.research-body {
+  max-width: 720px;
   margin: 0 auto;
 }
 
-.research-inner h2 {
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  font-weight: 700;
-  margin-bottom: 48px;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+.research-item h3 {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text);
+  margin-bottom: 10px;
+  letter-spacing: 0;
 }
 
-.research-timeline {
-  position: relative;
+.research-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.research-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.research-badge.accent {
+  color: var(--accent);
+  border-color: var(--accent-soft);
+  background: var(--accent-soft);
+}
+
+.research-item p {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  color: var(--text-dim);
+  line-height: 1.65;
+  margin: 0 auto 12px;
+  max-width: 64ch;
+  text-align: center;
+}
+
+.research-item p:last-child { margin-bottom: 0; }
+
+.research-item a {
+  color: var(--accent);
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  padding-bottom: 1px;
+  transition: background-size 250ms ease;
+}
+.research-item a:hover { background-size: 100% 2px; }
+
+.research-item .figures {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+.research-item .figures strong {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.research-figure {
+  margin: 24px auto 0;
+  padding: 14px 16px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  max-width: 880px;
+}
+
+.research-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+.research-figure figcaption {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.research-figure figcaption em {
+  font-style: italic;
+  color: var(--text-dim);
+}
+
+/* ============================================
+   PROJECTS — vertical list, PolyInterview as lead
+   ============================================ */
+.projects-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.projects-list {
   display: flex;
   flex-direction: column;
   gap: 0;
 }
 
-.research-timeline::before {
-  content: '';
-  position: absolute;
-  left: 11px;
-  top: 8px;
-  bottom: 8px;
-  width: 1.5px;
-  background: linear-gradient(to bottom, var(--accent), var(--accent2), var(--border));
-}
-
-.research-item {
-  padding-left: 44px;
-  padding-bottom: 48px;
-  position: relative;
-}
-
-.research-item:last-child { padding-bottom: 0; }
-
-.research-item::before {
-  content: '';
-  position: absolute;
-  left: 4px;
-  top: 6px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--surface);
-  border: 2.5px solid var(--accent);
-  z-index: 1;
-}
-
-.research-item:nth-child(2)::before { border-color: var(--accent2); }
-.research-item:nth-child(3)::before { border-color: var(--accent3); }
-
-.research-paper-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-}
-
-.research-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 100px;
-  letter-spacing: 0.08em;
-  white-space: nowrap;
-  margin-top: 3px;
-}
-
-.status-review {
-  background: rgba(16,185,129,0.1);
-  color: #059669;
-  border: 1px solid rgba(16,185,129,0.25);
-}
-
-.status-uris {
-  background: var(--accent-soft);
-  color: var(--accent);
-  border: 1px solid rgba(37,99,235,0.2);
-}
-
-.status-independent {
-  background: var(--accent2-soft);
-  color: var(--accent2);
-  border: 1px solid rgba(99,102,241,0.2);
-}
-
-.research-item h3 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  line-height: 1.35;
-  color: var(--text);
-  flex: 1;
-}
-
-.research-venue {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--accent);
-  margin-bottom: 10px;
-  letter-spacing: 0.05em;
-}
-
-.research-item p {
-  font-size: 0.95rem;
-  color: var(--text-dim);
-  line-height: 1.75;
-  margin-bottom: 14px;
-}
-
-.research-metrics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.research-metric {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 4px 12px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  color: var(--text-dim);
-}
-
-.research-metric strong {
-  color: var(--accent);
-}
-
-/* ============================================
-   SKILLS SECTION
-   ============================================ */
-#skills {
-  background: var(--surface);
-  border-top: 1px solid var(--border-soft);
-}
-
-.skills-inner {
-  max-width: 1000px;
-  margin: 0 auto;
+.project-card {
+  padding: 36px 0 38px;
+  border-top: 1px solid var(--border);
+  transition: transform 220ms ease, border-top-color 220ms ease;
   text-align: center;
 }
 
-.skills-inner h2 {
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  font-weight: 700;
-  margin-bottom: 12px;
-  letter-spacing: -0.02em;
+.project-card:last-child { border-bottom: 1px solid var(--border); }
+
+.project-card:hover {
+  transform: translateY(-3px);
+  border-top-color: var(--accent);
 }
 
-.skills-inner .sub {
-  font-size: 1rem;
-  color: var(--text-dim);
-  margin-bottom: 48px;
+.project-card.lead {
+  padding: 44px 0 48px;
+  border-top: 1px solid var(--accent);
 }
 
-.skills-categories {
+.project-card.lead .project-body {
   display: flex;
   flex-direction: column;
-  gap: 36px;
-  text-align: left;
-}
-
-.skills-category-label {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 14px;
-}
-
-.skills-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.skill-chip {
-  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: var(--text-dim);
-  transition: all 0.2s;
-}
-
-.skill-chip:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accent-soft);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
-}
-
-.skill-chip svg {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-}
-
-/* ============================================
-   PROJECTS SECTION
-   ============================================ */
-#projects {
-  background: var(--bg);
-}
-
-.projects-inner {
-  max-width: 1200px;
+  gap: 18px;
+  max-width: 720px;
   margin: 0 auto;
 }
 
-.projects-inner h2 {
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  font-weight: 700;
-  margin-bottom: 12px;
-  letter-spacing: -0.02em;
+.project-card.lead .project-body > div { width: 100%; }
+
+.project-card.lead .project-body .lead-meta {
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
 }
 
-.projects-inner .sub {
-  font-size: 1rem;
-  color: var(--text-dim);
-  margin-bottom: 48px;
-}
-
+/* The non-lead cards form a 2-column grid */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 24px;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 56px;
 }
 
-.project-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 32px;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s;
-  display: flex;
-  flex-direction: column;
+.projects-grid .project-card {
+  padding: 32px 0 34px;
 }
 
-.project-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  opacity: 0;
-  transition: opacity 0.25s;
-}
-
-.project-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: rgba(37,99,235,0.2);
-}
-
-.project-card:hover::before { opacity: 1; }
-
-.project-tag {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--accent);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-
-.project-card h3 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 12px;
-  letter-spacing: -0.01em;
-}
-
-.project-card .project-description {
-  font-size: 0.92rem;
-  color: var(--text-dim);
-  line-height: 1.7;
-  margin-bottom: 16px;
-  flex: 1;
-}
-
-.project-insight {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--accent2);
-  background: var(--accent2-soft);
-  border: 1px solid rgba(99,102,241,0.15);
-  border-radius: var(--radius-sm);
-  padding: 8px 12px;
-  margin-bottom: 16px;
-  line-height: 1.5;
-}
-
-.project-tech {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 20px;
-}
-
-.project-tech span {
+.project-kind {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  font-weight: 500;
-  padding: 3px 10px;
-  border: 1px solid var(--border);
-  border-radius: 100px;
   color: var(--text-muted);
-  background: var(--bg);
-  transition: all 0.2s;
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+}
+.project-kind.scope-label { margin-top: 18px; }
+
+.project-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: 0;
+  margin-bottom: 12px;
+  line-height: 1.25;
+  transition: color 0.2s ease;
 }
 
-.project-tech span:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+.project-card.lead h3 {
+  font-size: 1.85rem;
+  font-weight: 500;
+}
+
+.project-card:hover h3 { color: var(--accent); }
+
+.project-card p {
+  font-family: var(--font-serif);
+  font-size: 0.98rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin: 0 auto 12px;
+  max-width: 60ch;
+}
+
+.project-card p:last-of-type { margin-bottom: 14px; }
+
+.project-tech {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  line-height: 1.5;
 }
 
 .project-links {
   display: flex;
-  gap: 16px;
-  margin-top: auto;
+  justify-content: center;
+  gap: 18px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .project-links a {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 600;
   color: var(--accent);
-  letter-spacing: 0.05em;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  transition: color 0.2s;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  padding-bottom: 1px;
+  transition: background-size 250ms ease;
 }
-
-.project-links a:hover { color: var(--accent2); }
+.project-links a:hover { background-size: 100% 1px; }
 
 /* ============================================
-   CONTACT SECTION
+   SKILLS — quieter, footer-like
    ============================================ */
-#contact {
-  background: var(--text);
-  color: #fff;
-  border-top: none;
+#skills { padding: 72px 56px 80px; }
+
+.skills-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-#contact .section-label {
-  color: rgba(99,102,241,0.9);
+.skills-dl {
+  display: block;
+  max-width: 640px;
+  margin: 0 auto;
 }
 
-#contact .section-label::before { background: rgba(99,102,241,0.7); }
+.skills-dl dt {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text);
+  padding: 18px 0 6px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
 
+.skills-dl dt:first-of-type { border-top: none; }
+
+.skills-dl dd {
+  font-family: var(--font-sans);
+  font-size: 0.94rem;
+  color: var(--text-dim);
+  padding: 0 0 18px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* ============================================
+   CONTACT
+   ============================================ */
 .contact-inner {
-  max-width: 700px;
+  max-width: 720px;
   margin: 0 auto;
   text-align: center;
 }
 
 .contact-inner h2 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
-  margin-bottom: 16px;
-  letter-spacing: -0.03em;
-  color: #fff;
-}
-
-.contact-research-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #10B981;
-  background: rgba(16,185,129,0.1);
-  border: 1px solid rgba(16,185,129,0.25);
-  border-radius: 100px;
-  padding: 7px 18px;
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4.4vw, 3.4rem);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.1;
+  color: var(--text);
   margin-bottom: 24px;
-  letter-spacing: 0.04em;
+  position: relative;
+  padding-bottom: 20px;
+  text-align: center;
 }
+.contact-inner h2::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 72px;
+  height: 1px;
+  background: var(--accent);
+  transform: translateX(-50%) scaleX(1);
+  transform-origin: center;
+  transition: transform 600ms cubic-bezier(.76,0,.24,1) 200ms;
+}
+body.has-gsap .contact-inner h2::after { transform: translateX(-50%) scaleX(0); }
+body.has-gsap .contact-inner h2.is-visible::after { transform: translateX(-50%) scaleX(1); }
 
 .contact-inner p {
-  font-size: 1rem;
-  color: rgba(255,255,255,0.6);
-  line-height: 1.8;
-  margin-bottom: 40px;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  line-height: 1.65;
+  margin: 0 auto 24px;
+  max-width: 60ch;
 }
 
 .contact-links {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
   display: flex;
-  gap: 16px;
   justify-content: center;
+  gap: 28px;
   flex-wrap: wrap;
 }
 
-.contact-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 12px 24px;
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: var(--radius-sm);
-  color: rgba(255,255,255,0.85);
-  background: rgba(255,255,255,0.05);
-  transition: all 0.25s;
-  letter-spacing: 0.04em;
+.contact-links a {
+  color: var(--accent);
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  padding-bottom: 2px;
+  transition: background-size 250ms ease;
 }
-
-.contact-link:hover {
-  border-color: rgba(255,255,255,0.4);
-  color: #fff;
-  background: rgba(255,255,255,0.1);
-  transform: translateY(-2px);
-}
-
-.contact-link svg {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-}
+.contact-links a:hover { background-size: 100% 2px; }
 
 /* ============================================
    FOOTER
    ============================================ */
 footer {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  padding: 28px 40px;
+  padding: 28px 56px;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: rgba(255,255,255,0.3);
-  background: var(--text);
-  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+  text-align: center;
+  position: relative;
+  z-index: 3;
 }
 
 /* ============================================
    RESPONSIVE
    ============================================ */
-@media (max-width: 900px) {
-  section { padding: 80px 32px; }
-  .hero { padding: 80px 32px 60px; }
-  .about-content { grid-template-columns: 1fr; gap: 40px; }
-  .hero-stats { flex-wrap: wrap; width: 100%; }
-  .hero-stat { flex: 1; min-width: 120px; }
-  .projects-grid { grid-template-columns: 1fr; }
+@media (max-width: 960px) {
   nav { padding: 14px 24px; }
-  .nav-links { gap: 20px; }
+  .nav-links { gap: 18px; }
+  .hero {
+    padding: 110px 24px 60px;
+    min-height: 0;
+  }
+  .quick-facts { padding: 22px 24px 50px; }
+  .panel { padding: 72px 24px 80px; }
+  #skills { padding: 56px 24px 64px; }
+  .about-list { grid-template-columns: 1fr; gap: 22px; }
+  .research-figure { padding: 10px 10px 8px; }
+  .research-figure figcaption { font-size: 0.68rem; }
+  .projects-grid { grid-template-columns: 1fr; gap: 0; }
+  footer { padding: 22px 24px; }
 }
 
-@media (max-width: 640px) {
-  html { font-size: 18px; }
-  .hero-name { font-size: 2.8rem; }
-  .hero-badge { font-size: 0.6rem; padding: 5px 10px; }
-  section { padding: 64px 20px; }
-  .hero { padding: 72px 20px 48px; }
+@media (max-width: 767px) {
   .nav-links { display: none; }
+  body.nav-open .nav-links {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 54px;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    gap: 16px;
+    padding: 20px 24px;
+    background: rgba(243,239,230,0.97);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
   .nav-hamburger { display: flex; }
-  .scroll-indicator { left: 20px; }
-  .hero-stats { border: none; background: none; box-shadow: none; flex-wrap: wrap; gap: 16px; }
-  .hero-stat { border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); padding: 14px 20px; min-width: 140px; }
-  .hero-cta { flex-direction: column; align-items: flex-start; }
-  .contact-links { flex-direction: column; align-items: center; }
-  .contact-link { width: 100%; max-width: 300px; justify-content: center; }
+  .contact-links { flex-direction: column; gap: 14px; }
+  .hero-name { font-size: clamp(2.6rem, 10vw, 3.8rem); }
+  .hero-avatar { width: 100px; height: 100px; margin-bottom: 20px; }
 }
-
-/* ============================================
-   CSS HERO ENTRANCE ANIMATIONS
-   No GSAP dependency — content visible immediately as fallback.
-   ============================================ */
-@keyframes heroFadeUp {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes heroFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-#hero-badge    { animation: heroFadeUp 0.5s ease 0.15s both; }
-#hero-name     { animation: heroFadeUp 0.6s ease 0.25s both; }
-#hero-cn       { animation: heroFadeIn 0.5s ease 0.40s both; }
-#hero-subtitle { animation: heroFadeUp 0.5s ease 0.45s both; }
-#hero-stats    { animation: heroFadeUp 0.5s ease 0.55s both; }
-#hero-cta      { animation: heroFadeUp 0.5s ease 0.65s both; }
-#scroll-indicator { animation: heroFadeIn 0.6s ease 0.85s both; }
-
-/* Scroll-section fade (GSAP targets these) */
-.fade-up { opacity: 0; transform: translateY(30px); }
-.fade-in { opacity: 0; }
 </style>
 </head>
 <body>
+<a href="#main" class="skip-link">Skip to content</a>
 
-<!-- Desktop Cursor (rendered only on pointer:fine by CSS) -->
-<div class="cursor"></div>
-<div class="cursor-dot"></div>
-
-<!-- Navigation -->
+<!-- ============================================
+     NAV
+     ============================================ -->
 <nav id="nav">
-  <a href="#" class="nav-logo">
-    <span class="nav-logo-dot"></span>
-    Haochen Shi
-  </a>
-  <ul class="nav-links">
+  <a href="#hero" class="nav-logo">SHI Haochen</a>
+  <ul class="nav-links" id="primary-nav">
     <li><a href="#about">About</a></li>
     <li><a href="#research">Research</a></li>
-    <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="/Haochen-Shi-Resume.pdf" target="_blank" download class="nav-cv">Download CV</a></li>
   </ul>
-  <button class="nav-hamburger" aria-label="Menu" id="hamburger">
-    <span></span><span></span><span></span>
+  <button class="nav-hamburger" type="button" aria-label="Toggle menu" aria-controls="primary-nav" aria-expanded="false" id="hamburger">
+    <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
   </button>
 </nav>
 
 <!-- ============================================
-     HERO
+     HERO — typography-only
      ============================================ -->
 <section class="hero" id="hero">
+  <div class="hero-inner">
+    <img class="hero-avatar" src="assets/avatar-224.png" srcset="assets/avatar-224.png 2x, assets/avatar-336.png 3x" alt="" width="112" height="112" loading="eager" fetchpriority="high" decoding="async">
+    <h1 class="hero-name">
+      <span class="word"><span class="word-inner surname" style="--d:0ms">SHI</span></span>
+      <span class="word"><span class="word-inner" style="--d:90ms"><em>Haochen</em></span></span>
+    </h1>
+    <span class="hero-name-cn">石 昊 宸</span>
 
-  <!-- Open-to-research badge -->
-  <div class="hero-badge" id="hero-badge">
-    <div class="hero-badge-dot"></div>
-    Multimodal AI Researcher &nbsp;·&nbsp; <span style="white-space:nowrap">PolyU URIS</span>
-  </div>
+    <p class="hero-role">
+      Multimodal AI research, LLM multi-agent systems, and <em>benchmark design</em>.
+    </p>
 
-  <h1 class="hero-name" id="hero-name">Haochen Shi</h1>
+    <p class="hero-subtext">
+      Second-year CS at PolyU. Sole student PI on a URIS grant — building a grounded vision-language interaction system for home robots, under Prof. Wei Lou.
+    </p>
 
-  <div class="hero-name-cn" id="hero-cn">石昊宸</div>
-
-  <p class="hero-subtitle" id="hero-subtitle">
-    <strong>Multimodal AI Researcher</strong> at <strong>PolyU URIS</strong> · Full-Stack Engineer ·
-    2 papers under review at ACM MM 2026 &amp; KDD 2026
-  </p>
-
-  <!-- Stats bar -->
-  <div class="hero-stats" id="hero-stats">
-    <div class="hero-stat">
-      <div class="hero-stat-value">3.85</div>
-      <div class="hero-stat-label">GPA</div>
+    <div class="hero-cta">
+      <a href="assets/haochen-shi-cv.pdf" download="Haochen Shi - CV.pdf" class="btn-primary">
+        Download CV (EN)
+        <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4"/>
+        </svg>
+      </a>
+      <a href="石昊宸-简历.pdf" download class="btn-text">中文简历</a>
+      <a href="#research" class="btn-text">Read research</a>
     </div>
-    <div class="hero-stat">
-      <div class="hero-stat-value">2</div>
-      <div class="hero-stat-label">Papers Under Review</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-value">URIS</div>
-      <div class="hero-stat-label">Funded Research</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-value">12+</div>
-      <div class="hero-stat-label">AI Projects</div>
-    </div>
-  </div>
-
-  <!-- CTAs -->
-  <div class="hero-cta" id="hero-cta">
-    <a href="/Haochen-Shi-Resume.pdf" target="_blank" download class="btn-primary">
-      <!-- Download icon -->
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15">
-        <path d="M8 2v8M5 7l3 3 3-3M2 12h12" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Download CV (EN)
-    </a>
-    <a href="/石昊宸-简历.pdf" target="_blank" download class="btn-secondary">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15">
-        <path d="M8 2v8M5 7l3 3 3-3M2 12h12" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      下载简历 (中文)
-    </a>
-    <a href="#research" class="btn-secondary">
-      View Research
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" width="13" height="13">
-        <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </a>
-    <a href="mailto:haochen8.shi@connect.polyu.hk" class="btn-text">haochen8.shi@connect.polyu.hk →</a>
-  </div>
-
-  <div class="scroll-indicator" id="scroll-indicator">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
   </div>
 </section>
 
-<!-- ============================================
-     PUBLICATIONS TICKER
-     ============================================ -->
-<div class="ticker-wrapper">
-  <div class="ticker-content">
-    <div class="ticker-item"><span class="ticker-highlight">ACM MM 2026</span> CCD-VQA Traffic Understanding Benchmark</div>
-    <div class="ticker-item"><span class="ticker-highlight">KDD 2026</span> SurveyLens Discipline-Aware ASG Benchmark</div>
-    <div class="ticker-item"><span class="ticker-highlight">URIS</span> PolyU Undergraduate Research &amp; Innovation Scheme</div>
-    <div class="ticker-item"><span class="ticker-highlight">Multimodal AI</span> VLM Systems · Home Environment Dialogue</div>
-    <!-- duplicate for seamless loop -->
-    <div class="ticker-item"><span class="ticker-highlight">ACM MM 2026</span> CCD-VQA Traffic Understanding Benchmark</div>
-    <div class="ticker-item"><span class="ticker-highlight">KDD 2026</span> SurveyLens Discipline-Aware ASG Benchmark</div>
-    <div class="ticker-item"><span class="ticker-highlight">URIS</span> PolyU Undergraduate Research &amp; Innovation Scheme</div>
-    <div class="ticker-item"><span class="ticker-highlight">Multimodal AI</span> VLM Systems · Home Environment Dialogue</div>
-  </div>
+<!-- Quick facts under hero -->
+<div class="quick-facts">
+  Sole student PI<span class="dot">·</span>URIS grant<span class="dot">·</span>2 papers under review at ACL ARR<span class="dot">·</span>Kaggle Bronze<span class="dot">·</span>GPA 3.81<span class="dot">·</span>Dean’s List
 </div>
 
 <!-- ============================================
-     ABOUT
+     MAIN SECTIONS
      ============================================ -->
-<section id="about">
-  <div class="about-content">
-    <div class="about-text">
-      <div class="section-label">About Me</div>
-      <h2>Building multimodal AI systems where <span class="gradient-text">research meets production</span></h2>
-      <p>
-        CS undergrad at <strong>The Hong Kong Polytechnic University</strong> (GPA 3.85), selected for the
-        <strong>Undergraduate Research &amp; Innovation Scheme (URIS)</strong>. My work investigates layered
-        VLM architectures — whether keeping detection and tracking out of the reasoning loop improves
-        latency, interpretability, and hallucination rate in multi-turn dialogue.
+<main id="main">
+
+  <!-- ABOUT -->
+  <section class="panel" id="about">
+    <div class="about-inner">
+      <div class="about-prose">
+        <div class="section-label reveal-up">About</div>
+        <h2 class="section-title split-target">Research <em>focus</em>.</h2>
+        <p class="reveal-up" style="--rd:60ms">
+          I read CS at <strong>The Hong Kong Polytechnic University</strong> — Dean’s List, GPA 3.81. My focus is <strong>vision-language grounding</strong>, <strong>LLM-based multi-agent planning</strong>, and the <strong>evaluation work</strong> that makes both honest.
+        </p>
+        <p class="reveal-up" style="--rd:140ms">
+          Two papers I co-authored are in review at ACL ARR. In June 2026 I earned a Kaggle Bronze on BirdCLEF+ 2026 — 263 of 4,094 teams, top 6.4% on a featured-tier Brazilian Pantanal bioacoustic benchmark — submitted solo and documented as a CLEF 2026 Working Note.
+        </p>
+        <p class="reveal-up" style="--rd:220ms">
+          Outside research I build deployed tools — a self-hosted mock-interview platform now in use at PolyU, plus live demos at <em>learn.shc66.com</em> and <em>stock.shc66.com</em>.
+        </p>
+      </div>
+
+      <div class="about-list">
+        <div class="about-list-item reveal-up" style="--rd:120ms">
+          <div class="label">Research</div>
+          <div class="text">Embodied AI, vision-language grounding, real-time adaptation.</div>
+        </div>
+        <div class="about-list-item reveal-up" style="--rd:200ms">
+          <div class="label">Systems</div>
+          <div class="text">LLM multi-agent planning, evaluation harnesses, sandboxed runtimes.</div>
+        </div>
+        <div class="about-list-item reveal-up" style="--rd:280ms">
+          <div class="label">Data</div>
+          <div class="text">Discipline-aware benchmark construction and cleaning pipelines.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section class="panel" id="research">
+    <div class="research-inner">
+      <div class="section-label reveal-up">Research</div>
+      <h2 class="section-title split-target">Current <em>research</em>.</h2>
+
+      <div class="research-list">
+
+        <article class="research-item reveal-up" style="--rd:80ms">
+          <div class="research-body">
+            <h3>Multimodal LLM-Based Interaction System for Home Robots with Real-Time Adaptation</h3>
+            <div class="research-meta">
+              <span class="research-badge accent">PolyU URIS</span>
+              <span class="research-badge">Sole student PI</span>
+              <span class="research-badge">Sep 2025 – present</span>
+            </div>
+            <p>
+              <a href="https://www.polyu.edu.hk/gs/ug-research/uris/approved-projects/" target="_blank" rel="noopener">URIS</a> is PolyU’s university-wide undergraduate research scheme. The project fuses voice, gesture, and visual context into one grounded dialogue loop for a robot operating in a home environment — supervised by Prof. Wei Lou.
+            </p>
+            <p>
+              For the perception layer I fine-tuned Qwen2.5-VL-7B with DoRA on RefCOCO grounding — 6 × Ascend 910B2, 8.1 hours — to give the system a reliable referring-expression backbone.
+            </p>
+            <div class="figures">
+              <strong>acc@0.5</strong> 78.8% → 91.2%&nbsp;&nbsp;·&nbsp;&nbsp;<strong>mIoU</strong> 80.5&nbsp;&nbsp;·&nbsp;&nbsp;<strong>1.62 s/query</strong>
+            </div>
+          </div>
+        </article>
+
+        <article class="research-item reveal-up" style="--rd:180ms">
+          <div class="research-body">
+            <h3>SurveyLens · A Discipline-Aware Benchmark for Automatic Survey Generation</h3>
+            <div class="research-meta">
+              <span class="research-badge">Co-author</span>
+              <span class="research-badge accent">Under review · ACL ARR</span>
+              <span class="research-badge">Sep 2025 – present</span>
+            </div>
+            <p>
+              I built SurveyLens-1k — 1,000 human-written surveys, 100 per discipline across 10 fields — curated out of Semantic Scholar through keyword retrieval, LLM-based discipline tagging, and citation-rank pruning.
+            </p>
+            <p>
+              I then designed the three-stage cleaning pipeline that the dataset runs on (MinerU PDF parsing → rule filtering → LLM-assisted citation normalization), which lifted valid-sample retention from <strong>62% to 94%</strong>.
+            </p>
+          </div>
+          <figure class="research-figure">
+            <img src="assets/surveylens_framework.png" width="1980" height="1000" alt="SurveyLens framework: SurveyLens-1k construction, structured representation generation, and dual-lens evaluation" loading="lazy">
+            <figcaption>Framework overview from the paper — <em>SurveyLens-1k construction · structured survey representation · dual-lens evaluation</em>.</figcaption>
+          </figure>
+        </article>
+
+        <article class="research-item reveal-up" style="--rd:280ms">
+          <div class="research-body">
+            <h3>PersonalPlan · Planning Multi-Agent Systems for Personalized Programming Learning</h3>
+            <div class="research-meta">
+              <span class="research-badge">Co-author</span>
+              <span class="research-badge accent">Under review · ACL ARR</span>
+              <span class="research-badge">Mar 2026 – present</span>
+            </div>
+            <p>
+              I built the plan-to-CrewAI runtime mapper and the four-axis execution-verification evaluator that gates plans into the MAP-PPL training set (3,043 query–profile–plan instances). The harness scores instruction fidelity, workflow completeness, interaction quality, and content correctness — running 100-plan batches inside a multi-language Docker sandbox.
+            </p>
+            <p>
+              I then validated GRPO Phase-1 reward training on Qwen3-8B + LoRA (RTX 5090, 156 steps): tier-1 mean reward moved <strong>0.41 → 0.90</strong>. Along the way I traced the Qwen3 <code>/no_think</code> completion-truncation failure mode and wrote up a repro.
+            </p>
+          </div>
+          <figure class="research-figure">
+            <img src="assets/personalplan_framework.png" width="2280" height="1070" alt="PersonalPlan framework: learner input, hierarchical SFT (PAD + SDP), reward-adaptive GRPO, personalized MAS plan" loading="lazy">
+            <figcaption>Framework overview from the paper — <em>hierarchical SFT (PAD + SDP) · reward-adaptive GRPO · personalized MAS plan execution</em>.</figcaption>
+          </figure>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS — vertical, PolyInterview as lead -->
+  <section class="panel" id="projects">
+    <div class="projects-inner">
+      <div class="section-label reveal-up">Projects</div>
+      <h2 class="section-title split-target">Selected <em>projects</em>.</h2>
+
+      <div class="projects-list">
+
+        <!-- PolyInterview — lead -->
+        <article class="project-card lead reveal-up" style="--rd:60ms">
+          <div class="project-body">
+            <div>
+              <div class="project-kind">// university-endorsed · in production</div>
+              <h3>PolyInterview · AI Mock Interview Platform</h3>
+              <p>
+                A university initiative led by Prof. Jiannong Cao (PolyU VP for Research &amp; Innovation), now live and in use by PolyU students. Four services — Flask API, Express auth, Vue frontend, and a LiveTalking digital-human avatar — running against self-hosted Qwen3 on local GPU, with STAR-style adaptive follow-up questioning.
+              </p>
+              <p>
+                On the build side I wrote JWT auth, the user and database modules, the resume-refinement step, and the VLM-based video evaluation; designed the three-tier feedback rubric (Features → Aspects → Proficiency); and wired Azure Neural TTS streaming into Wav2Lip lip-sync.
+              </p>
+              <div class="project-tech">
+                Qwen3 (self-hosted), Azure Neural TTS, Wav2Lip, WebRTC, Vue.js, Flask, Docker
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/HaochenSHI66/JobInterview-main" target="_blank" rel="noopener">GitHub</a>
+              </div>
+            </div>
+            <div class="lead-meta">
+              <div class="project-kind">// role</div>
+              <p>Student Developer · Jul 2025 – Sep 2025</p>
+              <div class="project-kind scope-label">// scope</div>
+              <p>End-to-end build of the interview runtime, evaluation rubric, and cross-service integration across all four services.</p>
+            </div>
+          </div>
+        </article>
+
+        <div class="projects-grid">
+
+          <article class="project-card reveal-up" style="--rd:120ms">
+            <div class="project-kind">// ed-tech · live demo</div>
+            <h3>Teaching-Learning</h3>
+            <p>
+              Upload a slide deck and the tool walks you through it page by page — reading the diagram, writing a clean narrative, and passing the previous slide’s summary forward so the explanation stays coherent. A pluggable model gateway swaps between Claude and Qwen depending on the slide.
+            </p>
+            <div class="project-tech">Next.js 15, FastAPI, Claude, Qwen-VL, SQLite (WAL), Cloudflare Tunnel</div>
+            <div class="project-links">
+              <a href="https://learn.shc66.com" target="_blank" rel="noopener">Live demo</a>
+              <a href="https://github.com/Steven668866/Teaching-Learning-" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal-up" style="--rd:180ms">
+            <div class="project-kind">// finance tools · live demo</div>
+            <h3>AI Investment Terminal</h3>
+            <p>
+              A personal US-equity research terminal. Deterministic models (DCF, valuation ratios) run first; the LLM only writes the narrative <em>on top</em> of the numbers, so generated prose is constrained by deterministic outputs.
+            </p>
+            <div class="project-tech">Python, Pandas, financial APIs, OpenAI-compatible LLM clients</div>
+            <div class="project-links">
+              <a href="https://stock.shc66.com" target="_blank" rel="noopener">Live demo</a>
+              <a href="https://github.com/Steven668866/AI-Investment" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal-up" style="--rd:240ms">
+            <div class="project-kind">// mobile</div>
+            <h3>SmartJournal</h3>
+            <p>
+              An iOS / macOS diary where you write what you’re planning in prose and GPT-4o turns it into calendar events. Resolves relative time (“next Tuesday afternoon”), works offline against Supabase, and reconciles deterministically on reconnect.
+            </p>
+            <div class="project-tech">React Native, Expo, TypeScript, Supabase, GPT-4o</div>
+            <div class="project-links">
+              <a href="https://github.com/Steven668866/SmartJournal" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal-up" style="--rd:300ms">
+            <div class="project-kind">// research tools</div>
+            <h3>PaperHunter</h3>
+            <p>
+              The tool I actually use to keep up with ACL / NeurIPS / ICLR / CVPR. Pulls the arXiv API, filters by keywords <em>and</em> embedding similarity to a small seed of “I’d read this”, then sends me a digest on Sundays.
+            </p>
+            <div class="project-tech">Python, arXiv API, automation</div>
+            <div class="project-links">
+              <a href="https://github.com/Steven668866/PaperHunter" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal-up" style="--rd:360ms">
+            <div class="project-kind">// game AI</div>
+            <h3>Graph Gomoku AI</h3>
+            <p>
+              A full-stack Gomoku with a Minimax + Alpha-Beta engine and a live D3.js game-tree that streams over WebSocket — you can play against it and inspect the live search tree. Originally built as a teaching aid for adversarial search.
+            </p>
+            <div class="project-tech">Java, Spring Boot, React, TypeScript, D3.js</div>
+            <div class="project-links">
+              <a href="https://github.com/Steven668866" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS — quiet footer-like reference -->
+  <section class="panel" id="skills">
+    <div class="skills-inner">
+      <div class="section-label reveal-up">Stack</div>
+
+      <dl class="skills-dl">
+        <dt class="reveal-up" style="--rd:40ms">Languages</dt>
+        <dd class="reveal-up" style="--rd:40ms">Python, TypeScript, Java, C++, Go, SQL</dd>
+
+        <dt class="reveal-up" style="--rd:120ms">AI / ML</dt>
+        <dd class="reveal-up" style="--rd:120ms">PyTorch, Hugging Face, Qwen-VL, Qwen3, LoRA, DoRA, GRPO, CrewAI, LangChain</dd>
+
+        <dt class="reveal-up" style="--rd:200ms">Frontend</dt>
+        <dd class="reveal-up" style="--rd:200ms">React, Next.js, Vue.js, React Native, Tailwind CSS</dd>
+
+        <dt class="reveal-up" style="--rd:280ms">Backend</dt>
+        <dd class="reveal-up" style="--rd:280ms">FastAPI, Flask, Spring Boot, Node.js, Docker</dd>
+
+        <dt class="reveal-up" style="--rd:360ms">Databases</dt>
+        <dd class="reveal-up" style="--rd:360ms">PostgreSQL, MySQL, Redis, Supabase, ChromaDB</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="panel" id="contact">
+    <div class="contact-inner">
+      <div class="section-label reveal-up">Contact</div>
+      <h2 class="split-target">Get in touch.</h2>
+      <p class="reveal-up" style="--rd:80ms">
+        I’m looking for a summer 2026 research host working on multimodal AI, vision-language models, or LLM-based multi-agent systems. Email is the fastest way to reach me — I usually reply within a day.
       </p>
-      <p>
-        Alongside the URIS project, I've contributed to two conference submissions: a traffic-scene VQA
-        benchmark (ACM MM 2026) and a cross-discipline survey generation benchmark (KDD 2026). I also
-        build full-stack AI applications in production — deployed, used, and iterated.
-      </p>
-      <div class="about-highlights">
-        <div class="about-highlight">
-          <!-- Graduation cap icon -->
-          <svg class="about-highlight-icon" viewBox="0 0 20 20" fill="none" stroke="var(--accent)" stroke-width="1.6">
-            <path d="M10 3L2 7l8 4 8-4-8-4zM2 7v5M6 9v4c0 1.1 1.8 2 4 2s4-.9 4-2V9" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          CS @ PolyU · GPA 3.85 · URIS Research Scheme
-        </div>
-        <div class="about-highlight">
-          <!-- Code icon -->
-          <svg class="about-highlight-icon" viewBox="0 0 20 20" fill="none" stroke="var(--accent3)" stroke-width="1.6">
-            <path d="M6 7L2 10l4 3M14 7l4 3-4 3M11 5l-2 10" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Full-stack engineer with production deployments — Next.js, FastAPI, SQLite, Cloudflare Tunnel
-        </div>
+      <div class="contact-links reveal-up" style="--rd:160ms">
+        <a href="mailto:haochen8.shi@connect.polyu.hk">haochen8.shi@connect.polyu.hk</a>
+        <a href="https://github.com/HaochenSHI66" target="_blank" rel="noopener">github.com/HaochenSHI66</a>
+        <a href="https://shc66.com">shc66.com</a>
       </div>
     </div>
+  </section>
 
-    <div class="about-side">
-      <div class="about-card">
-        <div class="about-card-label">Current Research</div>
-        <h4>Multimodal Home Environment Interaction</h4>
-        <p>Layered VLM system — YOLOv8 + ByteTrack + Qwen2.5-VL on-demand. Investigating latency vs. interpretability trade-offs over multi-turn dialogue.</p>
-      </div>
-      <div class="about-card">
-        <div class="about-card-label">Conference Submissions</div>
-        <h4>ACM MM 2026 &amp; KDD 2026</h4>
-        <p>CCD-VQA (traffic understanding, 1,194 QA pairs) and SurveyLens (ASG benchmark, 10 disciplines). Both under review.</p>
-      </div>
-    </div>
-  </div>
-</section>
+</main>
 
 <!-- ============================================
-     RESEARCH
+     FOOTER
      ============================================ -->
-<section id="research">
-  <div class="research-inner">
-    <div class="section-label">Publications &amp; Research</div>
-    <h2>Academic <span class="gradient-text">Work</span></h2>
-
-    <div class="research-timeline">
-
-      <!-- Paper 1: CCD-VQA -->
-      <div class="research-item">
-        <div class="research-paper-header">
-          <h3>CCD-VQA: Benchmark Construction and Evaluation for Traffic Circumstances Understanding in Multimodal Large Language Models</h3>
-          <span class="research-status status-review">Under Review</span>
-        </div>
-        <div class="research-venue">ACM International Conference on Multimedia (ACM MM 2026) · Zhou Letian, Haochen Shi, Wei Lou</div>
-        <p>
-          A VQA benchmark targeting traffic accident understanding — an area where current VLMs show a
-          systematic reasoning failure. 199 accident videos filtered from 1,500 via YOLOv8 kinematic analysis;
-          1,194 QA pairs across six dimensions: Weather/Light, Traffic Environment, Road Configuration,
-          Accident Type, Accident Cause, and Accident Prevention. Sentence-BERT controls distractor
-          quality; a Benchmark Suitability Score (BSS) grounded in Item Response Theory suppresses
-          random-guessing shortcuts.
-        </p>
-        <div class="research-metrics">
-          <div class="research-metric">199 accident videos</div>
-          <div class="research-metric">1,194 QA pairs · 6 dimensions</div>
-          <div class="research-metric">Gemini: <strong>77.55%</strong></div>
-          <div class="research-metric">Open-source models: <strong>~64%</strong></div>
-          <div class="research-metric">Causal reasoning gap: <strong>−20–25%</strong></div>
-        </div>
-      </div>
-
-      <!-- Paper 2: SurveyLens -->
-      <div class="research-item">
-        <div class="research-paper-header">
-          <h3>SurveyLens: A Research Discipline-Aware Benchmark for Automatic Survey Generation</h3>
-          <span class="research-status status-review">Under Review</span>
-        </div>
-        <div class="research-venue">ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD 2026) · Beichen Guo, Zhiyuan Wen, Gu Jia, Senzhang Wang, Ruosong Yang, Shuaiqi Liu, Haochen Shi</div>
-        <p>
-          Existing ASG benchmarks are CS-biased and use generic metrics. SurveyLens-1k covers 10 disciplines
-          (Biology, Business, CS, Education, Engineering, Environmental Science, Medicine, Physics,
-          Psychology, Sociology) with 100 human-written surveys each. Evaluation uses discipline-aware
-          rubric scoring (LLM-as-judge with Bradley-Terry preference-aligned weights) and canonical alignment
-          metrics (RAMS + TAMS). Key finding: Deep Research agents produce richer narratives but lose
-          structural precision; vanilla LLMs outperform specialised ASG systems in humanities.
-        </p>
-        <div class="research-metrics">
-          <div class="research-metric">10 disciplines · 100 surveys each</div>
-          <div class="research-metric">11 methods evaluated</div>
-          <div class="research-metric">RAMS + TAMS alignment metrics</div>
-          <div class="research-metric">Bradley-Terry rubric scoring</div>
-        </div>
-      </div>
-
-      <!-- URIS Project -->
-      <div class="research-item">
-        <div class="research-paper-header">
-          <h3>Multimodal LLM-Based Home Environment Interaction System</h3>
-          <span class="research-status status-uris">URIS Funded · PolyU</span>
-        </div>
-        <div class="research-venue">Undergraduate Research &amp; Innovation Scheme · Sole Investigator</div>
-        <div style="font-size:0.82rem;color:#b45309;background:#fef3c7;border-left:3px solid #f59e0b;padding:5px 10px;border-radius:0 4px 4px 0;margin:6px 0;">
-          &#9733; <strong>Highly selective grant</strong> — university-wide competitive scheme with ~100 students selected across all departments; among these, only <strong>5–6 CS students</strong> were matched with a CS faculty supervisor. <a href="https://www.polyu.edu.hk/gs/ug-research/uris/approved-projects/#!" target="_blank" style="color:#b45309;">Official approved project list ↗</a>
-        </div>
-        <p>
-          Investigates whether a layered detector-tracker-VLM pipeline (YOLOv8 + pluggable tracker +
-          Qwen2.5-VL on-demand) achieves lower latency and higher interpretability than end-to-end VLM
-          querying. Object Registry maintains temporal event logs; Reference Resolver handles spatial and
-          ordinal disambiguation. Evaluation Lab produces structured JSON metrics: json_valid_rate,
-          clarification_rate, reference_resolution_rate, cache_hit_rate.
-        </p>
-        <div class="research-metrics">
-          <div class="research-metric">YOLOv8 + ByteTrack perception layer</div>
-          <div class="research-metric">Qwen2.5-VL on-demand reasoning</div>
-          <div class="research-metric">Prompt caching · Fast Mode</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============================================
-     SKILLS
-     ============================================ -->
-<section id="skills">
-  <div class="skills-inner">
-    <div class="section-label" style="justify-content:center;">Tech Stack</div>
-    <h2>Tools I <span class="gradient-text">Work With</span></h2>
-    <p class="sub">Languages, frameworks, and infrastructure used across research and production.</p>
-
-    <div class="skills-categories">
-
-      <div>
-        <div class="skills-category-label">Languages</div>
-        <div class="skills-chips">
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#3776AB"/><path d="M5.5 4.5h3.5c1 0 1.5.7 1.5 1.5S10 7.5 9 7.5H7V9h2c1 0 1.5.7 1.5 1.5S10 12 9 12H5.5" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg>
-            Python
-          </div>
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#3178C6"/><text x="3" y="11.5" font-size="7" fill="#fff" font-family="monospace" font-weight="bold">TS</text></svg>
-            TypeScript
-          </div>
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#ED8B00"/><text x="4.5" y="11.5" font-size="8" fill="#fff" font-family="monospace" font-weight="bold">J</text></svg>
-            Java
-          </div>
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#00599C"/><text x="3" y="11.5" font-size="6.5" fill="#fff" font-family="monospace" font-weight="bold">C++</text></svg>
-            C++
-          </div>
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#00ADD8"/><text x="3.5" y="11.5" font-size="7.5" fill="#fff" font-family="monospace" font-weight="bold">Go</text></svg>
-            Go
-          </div>
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#4479A1"/><text x="2.5" y="11.5" font-size="6" fill="#fff" font-family="monospace" font-weight="bold">SQL</text></svg>
-            SQL
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="skills-category-label">AI / ML</div>
-        <div class="skills-chips">
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#EE4C2C"/><path d="M5 11V5l6 3-6 3z" fill="#fff"/></svg>
-            PyTorch
-          </div>
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#111"/><path d="M8 3L5 8h6L8 3zm0 10l3-5H5l3 5z" fill="#fff" opacity=".9"/></svg>
-            PEFT / LoRA
-          </div>
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#00FFFF" fill-opacity=".15" stroke="#00CCCC" stroke-width="1"/><text x="2" y="11.5" font-size="5.5" fill="#007A80" font-family="monospace" font-weight="bold">YOLO</text></svg>
-            YOLOv8
-          </div>
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#5C3EE8"/><text x="2.5" y="11.5" font-size="5.5" fill="#fff" font-family="monospace" font-weight="bold">OCV</text></svg>
-            OpenCV
-          </div>
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#1C3C3C"/><path d="M4 8h8M8 4v8" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/></svg>
-            LangChain
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="skills-category-label">Full-Stack</div>
-        <div class="skills-chips">
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#000"/><path d="M8 5a3 3 0 100 6A3 3 0 008 5zm0 0V2m3 6h3M2 8h3" stroke="#61DAFB" stroke-width="1.3" stroke-linecap="round"/></svg>
-            React
-          </div>
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#000"/><path d="M8 4l4 7H4l4-7z" fill="#fff" opacity=".9"/></svg>
-            Next.js
-          </div>
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#009688"/><path d="M5 6h6M5 9h4" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></svg>
-            FastAPI
-          </div>
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#000"/><path d="M5 5h6v6H5z" stroke="#fff" stroke-width="1.2"/><path d="M3 8h2M11 8h2M8 3v2M8 11v2" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg>
-            Flask
-          </div>
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#6DB33F"/><path d="M4 11V8l4-3 4 3v3" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Spring Boot
-          </div>
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#2496ED"/><path d="M8 4.5a3 3 0 100 7 3 3 0 000-7z" fill="#fff" opacity=".9"/><path d="M3 8h2M11 8h2" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg>
-            Docker
-          </div>
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#003B57"/><path d="M4 10l4-4 4 4" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6v6" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>
-            SQLite
-          </div>
-          <div class="skill-chip">
-            <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" fill="#4169E1"/><text x="2.5" y="11.5" font-size="5.5" fill="#fff" font-family="monospace" font-weight="bold">PG</text></svg>
-            PostgreSQL
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============================================
-     PROJECTS
-     ============================================ -->
-<section id="projects">
-  <div class="projects-inner">
-    <div class="section-label">Featured Work</div>
-    <h2>Selected <span class="gradient-text">Projects</span></h2>
-    <p class="sub">Production deployments, research tooling, and AI systems.</p>
-
-    <div class="projects-grid">
-
-      <div class="project-card">
-        <div class="project-tag">// EdTech Platform</div>
-        <h3>Teaching-Learning</h3>
-        <p class="project-description">
-          AI slide lecture assistant — upload any PPT, get page-by-page explanations in a split-screen view.
-          Two Qwen models run in parallel: vision for diagram parsing, text for cross-slide narrative.
-          Prior-slide summaries passed forward as context to maintain coherence.
-        </p>
-        <div class="project-insight">Dual-pipeline Qwen-VL + Qwen-Chat · WAL-mode SQLite caching eliminates redundant inference on long decks</div>
-        <div class="project-tech">
-          <span>Next.js 15</span><span>FastAPI</span><span>Qwen-VL</span><span>SQLite WAL</span><span>Cloudflare Tunnel</span>
-        </div>
-        <div class="project-links">
-          <a href="https://learn.shc66.com" target="_blank">Live Demo ↗</a>
-          <a href="https://github.com/Steven668866/Teaching-Learning-" target="_blank">GitHub ↗</a>
-        </div>
-      </div>
-
-      <div class="project-card" style="border:2px solid #f59e0b;background:linear-gradient(135deg,#fffbeb,#fff);position:relative;">
-        <div style="position:absolute;top:-1px;right:12px;background:linear-gradient(135deg,#1d4ed8,#0ea5e9);color:white;font-size:0.7rem;font-weight:700;padding:2px 10px;border-radius:0 0 6px 6px;letter-spacing:0.5px;">★ KEY PROJECT</div>
-        <div class="project-tag">// University-Level Initiative</div>
-        <h3>PolyInterview <span style="font-size:0.75em;font-weight:400;color:#64748b;">· AI Mock Interview Platform</span></h3>
-        <p class="project-description" style="font-weight:500;">
-          <strong>University-endorsed project</strong> directly supervised by
-          <strong><a href="https://www.comp.polyu.edu.hk/en-us/staffs/detail/3577" target="_blank" style="color:#1d4ed8;text-decoration:none;">Prof. Jiannong Cao</a></strong>
-          (Vice President for Research &amp; Innovation, PolyU) — among the highest-level institutional endorsements available to an undergraduate.
-          Deployed for official PolyU use.
-        </p>
-        <p class="project-description">
-          Four-service AI interview platform: self-hosted <strong>Qwen3</strong> (no cloud LLM dependency) for multi-style adaptive questioning,
-          <strong>Azure Neural TTS real-time streaming</strong> replacing offline EdgeTTS for lower latency and expressive prosody,
-          Wav2Lip + WebRTC lip-synced avatar, and a 3-tier KSA/STAR evaluation framework.
-        </p>
-        <div class="project-insight">Azure Neural TTS (streaming) → Wav2Lip → WebRTC — replaced EdgeTTS to cut latency and enable emotional expression for a natural interviewer persona</div>
-        <div class="project-tech">
-          <span>Qwen3 (self-hosted)</span><span>Azure Neural TTS</span><span>Wav2Lip</span><span>WebRTC</span><span>Vue.js</span><span>Flask</span><span>Docker</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/HaochenSHI66/JobInterview-main" target="_blank">GitHub ↗</a>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-tag">// FinTech AI</div>
-        <h3>AI Investment Terminal</h3>
-        <p class="project-description">
-          US equity research terminal combining deterministic financial models (DCF, valuation ratios),
-          SEC/IR data ingestion, and LLM-assisted narrative analysis. Generates structured research
-          reports ranked by actionability.
-        </p>
-        <div class="project-insight">Deterministic financial models + LLM narrative layer — avoids hallucinated numbers by grounding in structured data first</div>
-        <div class="project-tech">
-          <span>Python</span><span>Pandas</span><span>Financial APIs</span><span>AI/ML</span>
-        </div>
-        <div class="project-links">
-          <a href="https://stock.shc66.com" target="_blank">Live Demo ↗</a>
-          <a href="https://github.com/Steven668866/AI-Investment" target="_blank">GitHub ↗</a>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-tag">// Mobile Experience</div>
-        <h3>SmartJournal</h3>
-        <p class="project-description">
-          iOS/macOS diary app where you write what you're planning and GPT-4o converts it to calendar events.
-          Handles relative time expressions ("next Tuesday afternoon"), offline-first state with Supabase,
-          and conflict resolution on reconnect.
-        </p>
-        <div class="project-insight">Local-first state management — syncs with Supabase on reconnect with deterministic conflict resolution</div>
-        <div class="project-tech">
-          <span>React Native</span><span>Expo</span><span>TypeScript</span><span>Supabase</span><span>GPT-4o</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/Steven668866/SmartJournal" target="_blank">GitHub ↗</a>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-tag">// Research Automation</div>
-        <h3>PaperHunter</h3>
-        <p class="project-description">
-          Tracks and curates the latest papers from top CS venues via arXiv API. Intelligent filtering,
-          topic categorisation, and weekly digest delivery. Useful for staying current across ACL, NeurIPS,
-          ICLR, and CVPR tracks.
-        </p>
-        <div class="project-insight">Automated curation pipeline — keyword + embedding-based relevance filtering with digest delivery</div>
-        <div class="project-tech">
-          <span>Python</span><span>arXiv API</span><span>Automation</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/Steven668866/PaperHunter" target="_blank">GitHub ↗</a>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-tag">// Game AI</div>
-        <h3>Graph Gomoku AI</h3>
-        <p class="project-description">
-          Full-stack Gomoku with a Minimax + Alpha-Beta pruning engine and real-time D3.js game-tree
-          visualisation over WebSocket. Designed as both a playable game and a visual demonstration of
-          adversarial search.
-        </p>
-        <div class="project-insight">Live game-tree rendering via D3.js + WebSocket — visualises Alpha-Beta pruning in real time</div>
-        <div class="project-tech">
-          <span>Java</span><span>Spring Boot</span><span>React</span><span>TypeScript</span><span>D3.js</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/Steven668866" target="_blank">GitHub ↗</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============================================
-     CONTACT
-     ============================================ -->
-<section id="contact">
-  <div class="contact-inner">
-    <div class="section-label" style="justify-content:center;">Get In Touch</div>
-    <h2>Let's Connect</h2>
-    <p>
-      Multimodal AI researcher at PolyU · Full-stack engineer · drop me an email or check the GitHub.
-    </p>
-    <div class="contact-links">
-      <a href="mailto:haochen8.shi@connect.polyu.hk" class="contact-link">
-        <!-- Email SVG -->
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="1" y="3" width="14" height="10" rx="2"/>
-          <path d="M1 5l7 5 7-5" stroke-linecap="round"/>
-        </svg>
-        haochen8.shi@connect.polyu.hk
-      </a>
-      <a href="https://github.com/Steven668866" target="_blank" class="contact-link">
-        <!-- GitHub SVG -->
-        <svg viewBox="0 0 16 16" fill="currentColor">
-          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-        </svg>
-        GitHub
-      </a>
-      <a href="https://shc66.com" class="contact-link">
-        <!-- Globe SVG -->
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
-          <circle cx="8" cy="8" r="7"/>
-          <path d="M8 1c-2 2-3 4-3 7s1 5 3 7M8 1c2 2 3 4 3 7s-1 5-3 7M1 8h14" stroke-linecap="round"/>
-        </svg>
-        shc66.com
-      </a>
-    </div>
-  </div>
-</section>
-
 <footer>
-  Haochen Shi &copy; 2026 · CS @ PolyU · haochen8.shi@connect.polyu.hk
+  &copy; 2026 SHI Haochen &nbsp;·&nbsp; CS @ PolyU &nbsp;·&nbsp; haochen8.shi@connect.polyu.hk
 </footer>
 
-<!-- ============================================
-     JAVASCRIPT
-     ============================================ -->
 <script>
-// ============================================
-// DESKTOP CURSOR (pointer:fine only)
-// ============================================
-const isPointerFine = window.matchMedia('(pointer: fine)').matches;
-if (isPointerFine) {
-  const cursor = document.querySelector('.cursor');
-  const cursorDot = document.querySelector('.cursor-dot');
-  if (cursor && cursorDot) {
-    let mouseX = 0, mouseY = 0, cx = 0, cy = 0, dx = 0, dy = 0;
-    document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
-    (function tick() {
-      cx += (mouseX - cx) * 0.14;
-      cy += (mouseY - cy) * 0.14;
-      dx += (mouseX - dx) * 0.35;
-      dy += (mouseY - dy) * 0.35;
-      cursor.style.cssText = `left:${cx-9}px;top:${cy-9}px`;
-      cursorDot.style.cssText = `left:${dx-2.5}px;top:${dy-2.5}px`;
-      requestAnimationFrame(tick);
-    })();
-    document.querySelectorAll('a, button, .project-card, .skill-chip').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  /* ============================================
+     Split section titles into word spans
+     ============================================ */
+  (function () {
+    document.querySelectorAll('.split-target').forEach((el) => {
+      const html = el.innerHTML;
+      const tokens = html.split(/(\s+)/);
+      let i = 0;
+      const out = tokens.map((tok) => {
+        if (/^\s+$/.test(tok)) return ' ';
+        const d = i * 70;
+        i++;
+        return `<span class="word"><span class="word-inner" style="--d:${d}ms">${tok}</span></span>`;
+      }).join('');
+      el.innerHTML = out;
     });
-  }
-}
+  })();
 
-// ============================================
-// HAMBURGER NAV
-// ============================================
-const hamburger = document.getElementById('hamburger');
-const navLinks = document.querySelector('.nav-links');
-if (hamburger && navLinks) {
-  hamburger.addEventListener('click', () => {
-    const open = navLinks.style.display === 'flex';
-    navLinks.style.cssText = open
-      ? ''
-      : 'display:flex;flex-direction:column;position:fixed;top:56px;left:0;right:0;background:rgba(248,250,252,0.97);border-bottom:1px solid var(--border);padding:20px 24px;gap:16px;backdrop-filter:blur(16px);z-index:999';
+  /* ============================================
+     Trigger hero arrival on load (only if GSAP path active)
+     ============================================ */
+  window.addEventListener('load', function () {
+    document.body.classList.add('is-loaded');
   });
-}
 
-// ============================================
-// WAIT FOR GSAP (loaded with defer)
-// ============================================
-window.addEventListener('load', () => {
-  if (typeof gsap === 'undefined') return;
-  gsap.registerPlugin(ScrollTrigger);
+  /* ============================================
+     Hash nav — smooth scroll with reduced-motion guard
+     ============================================ */
+  (function () {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const anchors = document.querySelectorAll('nav a[href^="#"], a.btn-text[href^="#"], a.btn-primary[href^="#"]');
 
-  // Hero animates via pure CSS (no GSAP needed — see @keyframes in <style>)
+    anchors.forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const targetId = a.getAttribute('href').slice(1);
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({
+          behavior: prefersReduced ? 'auto' : 'smooth',
+          block: 'start'
+        });
+      });
+    });
+  })();
 
-  // Scroll animations — transform only, no opacity (content always visible)
-  gsap.from('.about-card', {
-    scrollTrigger: { trigger: '#about', start: 'top 72%' },
-    y: 24, duration: 0.55, stagger: 0.1, ease: 'power3.out'
-  });
-  gsap.from('.about-text', {
-    scrollTrigger: { trigger: '#about', start: 'top 72%' },
-    x: -30, duration: 0.7, ease: 'power3.out'
-  });
-  gsap.from('.about-highlight', {
-    scrollTrigger: { trigger: '.about-highlights', start: 'top 82%' },
-    y: 12, duration: 0.45, stagger: 0.08, ease: 'power2.out'
-  });
-  document.querySelectorAll('.research-item').forEach((item, i) => {
-    gsap.from(item, {
-      scrollTrigger: { trigger: item, start: 'top 84%' },
-      x: -18, duration: 0.6, delay: i * 0.08, ease: 'power3.out'
+  /* ============================================
+     Mobile hamburger — toggle aria-expanded, close on link click
+     ============================================ */
+  (function () {
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    if (!hamburger || !navLinks) return;
+
+    const setMenuOpen = (open) => {
+      document.body.classList.toggle('nav-open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+    };
+
+    const closeMenu = () => {
+      setMenuOpen(false);
+    };
+
+    hamburger.addEventListener('click', () => {
+      setMenuOpen(!document.body.classList.contains('nav-open'));
+    });
+
+    // Close mobile menu when any nav link is tapped
+    navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMenu();
+    });
+  })();
+
+  /* ============================================
+     GSAP — reveal triggers only.
+     Default state: content fully visible.
+     We only hide-then-reveal if GSAP is confirmed live.
+     ============================================ */
+  window.addEventListener('load', function () {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    document.body.classList.add('has-gsap');
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      document.querySelectorAll('h2.section-title, .contact-inner h2, .reveal-up').forEach((el) => {
+        el.classList.add('is-visible');
+      });
+      return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* Section title underline + reveal-up trigger */
+    document.querySelectorAll('h2.section-title, .contact-inner h2').forEach((el) => {
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 85%',
+        onEnter: () => el.classList.add('is-visible'),
+        once: true,
+      });
+    });
+
+    document.querySelectorAll('.reveal-up').forEach((el) => {
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 90%',
+        onEnter: () => el.classList.add('is-visible'),
+        once: true,
+      });
     });
   });
-  gsap.from('.skill-chip', {
-    scrollTrigger: { trigger: '#skills', start: 'top 72%' },
-    scale: 0.92, duration: 0.35, stagger: { each: 0.03, from: 'start' }, ease: 'back.out(1.3)'
-  });
-  document.querySelectorAll('.project-card').forEach((card, i) => {
-    gsap.from(card, {
-      scrollTrigger: { trigger: card, start: 'top 86%' },
-      y: 20, duration: 0.55, delay: i * 0.06, ease: 'power3.out'
-    });
-  });
-  gsap.from('.contact-inner', {
-    scrollTrigger: { trigger: '#contact', start: 'top 72%' },
-    y: 24, duration: 0.6, ease: 'power3.out'
-  });
-});
-
-// ============================================
-// PROJECT CARD MOUSE GLOW (CSS custom prop)
-// ============================================
-document.querySelectorAll('.project-card').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const r = card.getBoundingClientRect();
-    card.style.setProperty('--mouse-x', (e.clientX - r.left) + 'px');
-    card.style.setProperty('--mouse-y', (e.clientY - r.top) + 'px');
-  });
-});
 </script>
 
 </body>
 </html>
-
