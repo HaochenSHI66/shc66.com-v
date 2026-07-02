@@ -6,7 +6,7 @@
 <title>SHI Haochen — multimodal AI research, PolyU</title>
 <meta name="description" content="SHI Haochen — CS undergrad at PolyU (GPA 3.81, Dean’s List). Multimodal AI research, LLM multi-agent systems, benchmark design. Two papers under review at ACL ARR.">
 <link rel="canonical" href="https://shc66.com/">
-<meta name="theme-color" content="#14201E">
+<meta name="theme-color" content="#F7F8F4">
 <link rel="icon" type="image/png" href="assets/avatar-224.png">
 
 <!-- Fonts: Newsreader (serif), Inter Tight (sans), JetBrains Mono (mono) -->
@@ -37,11 +37,11 @@
   --accent-tap:  rgba(15,107,95,0.15);
   --metal:       #A37B4E;
   --metal-soft:  rgba(163,123,78,0.20);
-  --nav-bg:      rgba(20,32,30,0.96);
-  --nav-bg-open: #14201E;
-  --nav-text:    #F7FAF8;
-  --nav-muted:   #C5D0CB;
-  --nav-border:  rgba(247,250,248,0.14);
+  --nav-bg:      rgba(252,253,251,0.90);
+  --nav-bg-open: #FCFDFB;
+  --nav-text:    #181C1B;
+  --nav-muted:   #45534F;
+  --nav-border:  rgba(24,28,27,0.12);
   --radius:      6px;
   --radius-lg:   12px;
   --font-serif:  'Newsreader', Georgia, serif;
@@ -77,7 +77,7 @@ html {
 
 body {
   font-family: var(--font-sans);
-  font-size: 17px;
+  font-size: 18px;
   background: linear-gradient(180deg, #F7F8F4 0%, var(--bg) 52%, #EDF0EC 100%);
   color: var(--text);
   line-height: 1.65;
@@ -135,11 +135,12 @@ nav {
   -webkit-backdrop-filter: blur(14px);
   background: var(--nav-bg);
   border-bottom: 1px solid var(--nav-border);
+  box-shadow: 0 10px 28px rgba(20,32,30,0.06);
 }
 
 .nav-logo {
   font-family: var(--font-serif);
-  font-size: 1.05rem;
+  font-size: 1.14rem;
   font-weight: 500;
   color: var(--nav-text);
   letter-spacing: 0;
@@ -154,13 +155,13 @@ nav {
 
 .nav-links a {
   font-family: var(--font-sans);
-  font-size: 0.85rem;
+  font-size: 0.98rem;
   font-weight: 500;
   color: var(--nav-muted);
   transition: color 0.2s ease;
 }
 
-.nav-links a:hover { color: var(--nav-text); }
+.nav-links a:hover { color: var(--accent); }
 
 .nav-hamburger {
   display: none;
@@ -209,7 +210,7 @@ body.has-gsap.is-loaded .word-inner {
    ============================================ */
 .section-label {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 500;
   color: var(--text-muted);
   letter-spacing: 0.18em;
@@ -328,7 +329,7 @@ body.has-gsap .reveal-up.is-visible {
 
 .hero-name-cn {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 400;
   color: var(--text-muted);
   letter-spacing: 0.18em;
@@ -339,7 +340,7 @@ body.has-gsap .reveal-up.is-visible {
 .hero-role {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  font-size: clamp(1.48rem, 2.5vw, 1.92rem);
   font-weight: 400;
   color: var(--text-dim);
   margin: 8px auto 0;
@@ -350,7 +351,7 @@ body.has-gsap .reveal-up.is-visible {
 
 .hero-subtext {
   font-family: var(--font-sans);
-  font-size: 1.075rem;
+  font-size: 1.16rem;
   color: var(--text-dim);
   margin: 24px auto 0;
   max-width: 640px;
@@ -400,7 +401,7 @@ body.has-gsap.is-loaded .hero-name-cn { opacity: 1; transform: none; }
   align-items: center;
   gap: 8px;
   font-family: var(--font-sans);
-  font-size: 0.92rem;
+  font-size: 1rem;
   font-weight: 500;
   padding: 12px 24px;
   background: transparent;
@@ -427,7 +428,7 @@ body.has-gsap.is-loaded .hero-name-cn { opacity: 1; transform: none; }
 
 .btn-text {
   font-family: var(--font-sans);
-  font-size: 0.92rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--text-dim);
   background-image: linear-gradient(var(--accent), var(--accent));
@@ -445,7 +446,7 @@ body.has-gsap.is-loaded .hero-name-cn { opacity: 1; transform: none; }
 /* Quick facts strip under hero */
 .quick-facts {
   font-family: var(--font-sans);
-  font-size: 0.9rem;
+  font-size: 0.98rem;
   color: var(--text-muted);
   border-top: 1px solid var(--border);
   padding: 22px 56px 60px;
@@ -501,7 +502,7 @@ main { position: relative; }
 
 .about-prose {
   font-family: var(--font-serif);
-  font-size: 1.1rem;
+  font-size: 1.18rem;
   font-weight: 400;
   color: var(--text-dim);
   line-height: 1.65;
@@ -529,7 +530,7 @@ main { position: relative; }
 
 .about-list-item .label {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.76rem;
   color: var(--text-muted);
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -538,7 +539,7 @@ main { position: relative; }
 
 .about-list-item .text {
   font-family: var(--font-serif);
-  font-size: 1rem;
+  font-size: 1.08rem;
   color: var(--text);
   line-height: 1.5;
 }
@@ -573,7 +574,7 @@ main { position: relative; }
 
 .research-item h3 {
   font-family: var(--font-serif);
-  font-size: 1.35rem;
+  font-size: 1.45rem;
   font-weight: 500;
   line-height: 1.3;
   color: var(--text);
@@ -591,7 +592,7 @@ main { position: relative; }
 
 .research-badge {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.76rem;
   color: var(--text-muted);
   letter-spacing: 0.06em;
   padding: 3px 8px;
@@ -608,7 +609,7 @@ main { position: relative; }
 
 .research-item p {
   font-family: var(--font-serif);
-  font-size: 1rem;
+  font-size: 1.08rem;
   color: var(--text-dim);
   line-height: 1.65;
   margin: 0 auto 12px;
@@ -631,7 +632,7 @@ main { position: relative; }
 
 .research-item .figures {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   color: var(--text-muted);
   line-height: 1.6;
   margin-top: 8px;
@@ -661,7 +662,7 @@ main { position: relative; }
 .research-figure figcaption {
   margin-top: 10px;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   letter-spacing: 0.02em;
   color: var(--text-muted);
   text-align: center;
@@ -737,7 +738,7 @@ main { position: relative; }
 
 .project-kind {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   letter-spacing: 0.04em;
   margin-bottom: 10px;
@@ -746,7 +747,7 @@ main { position: relative; }
 
 .project-card h3 {
   font-family: var(--font-serif);
-  font-size: 1.3rem;
+  font-size: 1.42rem;
   font-weight: 500;
   color: var(--text);
   letter-spacing: 0;
@@ -756,7 +757,7 @@ main { position: relative; }
 }
 
 .project-card.lead h3 {
-  font-size: 1.85rem;
+  font-size: 2rem;
   font-weight: 500;
 }
 
@@ -764,7 +765,7 @@ main { position: relative; }
 
 .project-card p {
   font-family: var(--font-serif);
-  font-size: 0.98rem;
+  font-size: 1.06rem;
   color: var(--text-dim);
   line-height: 1.6;
   margin: 0 auto 12px;
@@ -775,7 +776,7 @@ main { position: relative; }
 
 .project-tech {
   font-family: var(--font-mono);
-  font-size: 0.74rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
   margin-bottom: 14px;
   line-height: 1.5;
@@ -786,7 +787,7 @@ main { position: relative; }
   justify-content: center;
   gap: 18px;
   font-family: var(--font-sans);
-  font-size: 0.9rem;
+  font-size: 0.98rem;
   font-weight: 500;
 }
 
@@ -821,7 +822,7 @@ main { position: relative; }
 .skills-dl dt {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 1rem;
+  font-size: 1.08rem;
   font-weight: 500;
   color: var(--text);
   padding: 18px 0 6px;
@@ -833,7 +834,7 @@ main { position: relative; }
 
 .skills-dl dd {
   font-family: var(--font-sans);
-  font-size: 0.94rem;
+  font-size: 1.02rem;
   color: var(--text-dim);
   padding: 0 0 18px;
   line-height: 1.6;
@@ -879,7 +880,7 @@ body.has-gsap .contact-inner h2.is-visible::after { transform: translateX(-50%) 
 
 .contact-inner p {
   font-family: var(--font-serif);
-  font-size: 1.05rem;
+  font-size: 1.14rem;
   color: var(--text-dim);
   line-height: 1.65;
   margin: 0 auto 24px;
@@ -888,7 +889,7 @@ body.has-gsap .contact-inner h2.is-visible::after { transform: translateX(-50%) 
 
 .contact-links {
   font-family: var(--font-sans);
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 500;
   display: flex;
   justify-content: center;
@@ -913,7 +914,7 @@ body.has-gsap .contact-inner h2.is-visible::after { transform: translateX(-50%) 
 footer {
   padding: 28px 56px;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.82rem;
   color: var(--text-muted);
   border-top: 1px solid var(--border);
   background: var(--bg);
@@ -937,7 +938,7 @@ footer {
   #skills { padding: 56px 24px 64px; }
   .about-list { grid-template-columns: 1fr; gap: 22px; }
   .research-figure { padding: 10px 10px 8px; }
-  .research-figure figcaption { font-size: 0.68rem; }
+  .research-figure figcaption { font-size: 0.74rem; }
   .projects-grid { grid-template-columns: 1fr; gap: 0; }
   footer { padding: 22px 24px; }
 }
@@ -1177,6 +1178,18 @@ footer {
         <div class="projects-grid">
 
           <article class="project-card reveal-up" style="--rd:120ms">
+            <div class="project-kind">// language learning · Cloudflare PWA</div>
+            <h3>Voca Memory</h3>
+            <p>
+              A vocabulary-memory platform for GRE / TOEFL workflows: photo or text import, FSRS spaced repetition, L0-L4 mastery states, 12 adaptive question types, and a three-tier judging path from local exact/F1 matching to GPT fallback.
+            </p>
+            <div class="project-tech">Next.js 16, React 19, Tailwind v4, Cloudflare Pages Functions, D1, Queues, Serwist PWA, Playwright</div>
+            <div class="project-links">
+              <a href="https://github.com/HaochenSHI66/voca-memory" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal-up" style="--rd:180ms">
             <div class="project-kind">// ed-tech · live demo</div>
             <h3>Teaching-Learning</h3>
             <p>
@@ -1189,7 +1202,7 @@ footer {
             </div>
           </article>
 
-          <article class="project-card reveal-up" style="--rd:180ms">
+          <article class="project-card reveal-up" style="--rd:240ms">
             <div class="project-kind">// finance tools · live demo</div>
             <h3>AI Investment Terminal</h3>
             <p>
@@ -1202,7 +1215,7 @@ footer {
             </div>
           </article>
 
-          <article class="project-card reveal-up" style="--rd:240ms">
+          <article class="project-card reveal-up" style="--rd:300ms">
             <div class="project-kind">// mobile</div>
             <h3>SmartJournal</h3>
             <p>
@@ -1214,7 +1227,7 @@ footer {
             </div>
           </article>
 
-          <article class="project-card reveal-up" style="--rd:300ms">
+          <article class="project-card reveal-up" style="--rd:360ms">
             <div class="project-kind">// research tools</div>
             <h3>PaperHunter</h3>
             <p>
@@ -1226,7 +1239,7 @@ footer {
             </div>
           </article>
 
-          <article class="project-card reveal-up" style="--rd:360ms">
+          <article class="project-card reveal-up" style="--rd:420ms">
             <div class="project-kind">// game AI</div>
             <h3>Graph Gomoku AI</h3>
             <p>
