@@ -24,27 +24,33 @@
 - 排名统一为 263/4,094(以官方证书为准,与 CV 一致;原 262/4,085 出自论文快照)×3 处
 - 验证:桌面/证书截图 OK,无 pageerror
 
+### Round 2(2026-07-04,正确性 + 测试覆盖)
+- 全量链接校验(锚点/本地文件/HTTP):除 3 个已知用户侧项外零新死链
+- HTML 结构校验:单 h1、无层级跳跃、无重复 ID、alt/noopener 齐全、无嵌套错误 —— 全绿
+- 新增 scripts/smoke.sh(禁字符/锚点/资产存在/HTML 结构/打印可见性守护/可选 --online 外链检查),运行 PASS
+- 字体子集裁剪实测仅省 ~8%(Google latin 子集已紧,体积在变量轴数据)→ **判定不值得,放弃**,已记录
+
 ## 待办(按维度)
 
-### 正确性(下轮从这里扫)
+### 正确性(用户侧,非代码)
 - [ ] voca-memory 链接指向私有仓库,访客 404 —— 等用户设 public,或换链接
-- [ ] CLEF 论文 PDF 内文写 262/4085 与页面 263/4,094 不一致(论文快照,页面已注明 awarded 数字;可接受,观察)
-- [ ] learn/stock.shc66.com 返回 530(隧道未起);About 段落仍链着这两个域名 —— 隧道恢复后把项目行链接换回 demo,或提示用户起隧道
+- [ ] learn/stock.shc66.com 返回 530(隧道未起)—— 隧道恢复后把项目行链接换回 demo
+- [ ] CLEF 论文 PDF 内文 262/4085 与页面 263/4,094(证书数)并存 —— 论文快照,可接受,观察
 
 ### 性能
-- [ ] assets/avatar.png (1.3MB)、两张旧 PNG 框架图已无引用但仍随仓库部署 —— 删除需用户确认
-- [ ] newsreader-var-latin.woff2 129KB(含全 opsz/wght 轴),可用 pyftsubset 裁剪到 ~40KB
-- [ ] og:image 用的方形头像,可做 1200x630 专用卡
+- [ ] assets/avatar.png (1.3MB) + 两张旧 PNG 框架图 (2.4MB) 已无引用但仍随仓库部署 —— 删除需用户确认
+- [x] ~~字体子集裁剪~~ 实测收益 8%,放弃(Round 2)
+- [ ] og:image 用方形头像,可用 PIL 合成 1200x630 专用分享卡
 
 ### 重复/可简化
-- [ ] nav-links 和 btn-text 的下划线渐变 CSS 重复 3 处,可抽公共 class(收益小)
+- [ ] nav-links / btn-text / about-prose a 的下划线样式重复 3 处,可抽公共 class(收益小)
 
 ### 测试覆盖
-- [ ] 把验证脚本固化:repo 内加 scripts/smoke.mjs(Playwright:标题/锚点/打印可见性/pageerror/死链检查),每轮跑
+- [x] scripts/smoke.sh 已固化(Round 2);每轮 commit 前必跑
 
 ### 文档
-- [ ] docs/superpowers/plans/2026-04-04-portfolio-redesign.md 已过时(描述的是上上版),可归档或删除(需确认)
-- [ ] README 不存在,可写一份(架构/部署/验证方法)
+- [ ] docs/superpowers/plans/2026-04-04-portfolio-redesign.md 已过时(描述的是上上版)—— 删除/归档需用户确认
+- [ ] README 不存在,写一份(架构/部署/验证方法/smoke 用法)
 
 ## 下轮计划
-Round 2:正确性维度扫描(死链全量 curl 校验 + HTML 结构校验),顺手做测试覆盖项(smoke 脚本固化),如无发现则做字体子集裁剪(性能)。
+Round 3:文档维度(写 README)+ 性能项(PIL 合成 1200x630 og:image 分享卡并接入 meta)。之后若两轮无新发现即出最终报告收束。
