@@ -68,6 +68,7 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 html {
+  font-size: 112.5%;
   scroll-behavior: smooth;
   scroll-padding-top: 84px;
   -webkit-text-size-adjust: 100%;
@@ -78,7 +79,7 @@ html {
 
 body {
   font-family: var(--sans);
-  font-size: 17px;
+  font-size: 1rem;
   line-height: 1.6;
   background: var(--paper);
   color: var(--ink);
@@ -295,11 +296,11 @@ body.nav-open .menu-btn span:nth-child(3) { transform: translateY(-6.5px) rotate
 /* ============================================
    SECTIONS
    ============================================ */
-section { border-top: 1px solid var(--hairline); padding: 76px 0 92px; }
+section { border-top: 1px solid var(--hairline); padding: 92px 0 108px; }
 
 h2 {
-  font-size: clamp(1.7rem, 2.6vw, 2.1rem);
-  margin-bottom: 44px;
+  font-size: clamp(1.85rem, 2.8vw, 2.35rem);
+  margin-bottom: 52px;
 }
 
 /* Ledger entry: mono meta rail on the left, content on the right */
@@ -358,12 +359,13 @@ h2 {
   background: var(--accent-soft); padding: 1px 5px; border-radius: 3px;
 }
 
-.entry figure { margin-top: 30px; }
+.entry figure { margin-top: 34px; }
 .entry figure img {
   display: block; width: 100%;
   border: 1px solid var(--hairline);
   border-radius: 4px;
   background: var(--surface);
+  box-shadow: 0 18px 44px rgba(29,28,24,0.07);
 }
 .entry figcaption {
   font-family: var(--mono); font-size: 0.76rem;
@@ -577,7 +579,7 @@ footer {
       </div>
       <div>
         <dt>Kaggle Bronze</dt>
-        <dd>BirdCLEF+ 2026, rank 262 of 4,085</dd>
+        <dd>BirdCLEF+ 2026, rank 263 of 4,094</dd>
       </div>
       <div>
         <dt>GPA 3.81</dt>
@@ -627,7 +629,7 @@ footer {
           <span class="status-accepted">Accepted working note</span><br>
           Sole author
           <div class="metrics">
-            <div><span class="num">262 / 4,085</span><span class="lbl">Kaggle rank, Bronze</span></div>
+            <div><span class="num">263 / 4,094</span><span class="lbl">Kaggle rank, Bronze</span></div>
             <div><span class="num">234</span><span class="lbl">scored classes</span></div>
             <div><span class="num">31</span><span class="lbl">unmapped classes</span></div>
           </div>
@@ -644,6 +646,10 @@ footer {
           <p>
             The same analysis shows focal-to-soundscape domain shift dominates the small in-domain ensemble effects.
           </p>
+          <figure>
+            <img src="assets/kaggle-bronze-certificate.webp" width="1600" height="987" alt="Kaggle certificate of achievement: Bronze medalist, placed 263rd of 4,094 teams in BirdCLEF+ 2026, awarded June 4, 2026" loading="lazy" decoding="async">
+            <figcaption>Kaggle Bronze certificate for BirdCLEF+ 2026: placed 263rd of 4,094 teams, awarded June 4, 2026.</figcaption>
+          </figure>
         </div>
       </article>
 
@@ -781,7 +787,7 @@ footer {
           I am a second-year CS student at The Hong Kong Polytechnic University (GPA 3.81, Dean's List). I work on vision-language grounding and LLM-based multi-agent planning, with a particular interest in evaluation: benchmark construction, data-cleaning pipelines, and reward validation.
         </p>
         <p>
-          Two papers I co-authored are under review at ACL ARR. I am also the sole author of an accepted CLEF 2026 working note auditing a Perch V2 bioacoustics pipeline, written after a Kaggle Bronze finish (rank 262 of 4,085) in BirdCLEF+ 2026.
+          Two papers I co-authored are under review at ACL ARR. I am also the sole author of an accepted CLEF 2026 working note auditing a Perch V2 bioacoustics pipeline, written after a Kaggle Bronze finish (rank 263 of 4,094) in BirdCLEF+ 2026.
         </p>
         <p>
           Outside research I build deployed tools: an AI mock-interview platform in use at PolyU, and live demos at <a href="https://learn.shc66.com" target="_blank" rel="noopener">learn.shc66.com</a> and <a href="https://stock.shc66.com" target="_blank" rel="noopener">stock.shc66.com</a>.
