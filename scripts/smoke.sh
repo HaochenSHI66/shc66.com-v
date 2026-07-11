@@ -43,7 +43,7 @@ class Check(HTMLParser):
         if tag == 'img' and not a.get('alt', None) and a.get('alt') != '': self.issues.append(f"img missing alt: {a.get('src')}")
         if tag == 'a' and a.get('target') == '_blank' and 'noopener' not in (a.get('rel') or ''):
             self.issues.append(f"_blank without noopener: {a.get('href')}")
-        if tag not in ('br','img','meta','link','input','hr'): self.stack.append(tag)
+        if tag not in ('br','img','meta','link','input','hr','source'): self.stack.append(tag)
     def handle_endtag(self, tag):
         if self.stack and self.stack[-1] == tag: self.stack.pop()
         elif tag in self.stack:
@@ -64,7 +64,69 @@ EOF
 grep -q "@media print" index.html || fail "print visibility override missing"
 grep -q "classList.add('rv')" index.html || fail "pre-paint rv gate missing"
 
-# 6. External links (optional)
+# 6. Bilingual and playful-redesign requirements
+grep -q 'id="language-toggle"' index.html || fail "missing language toggle"
+grep -q 'id="i18n-data"' index.html || fail "missing i18n data"
+grep -q 'portfolio-language' index.html || fail "language choice is not persisted"
+grep -q "document.documentElement.lang" index.html || fail "document language is not updated"
+grep -q 'prefers-reduced-motion: reduce' index.html || fail "reduced-motion treatment missing"
+grep -q 'id="shuffle-stickers"' index.html || fail "missing playful sticker interaction"
+
+for art in research-buddy idea-garden hello-orbit; do
+  grep -q "assets/illustrations/$art.webp" index.html || fail "missing illustration reference $art.webp"
+done
+
+python3 - <<'EOF' || FAIL=1
+from html.parser import HTMLParser
+import json, re, subprocess, sys
+
+src = open('index.html').read()
+match = re.search(r'<script[^>]+id="i18n-data"[^>]*>(.*?)</script>', src, re.S)
+if not match:
+    print('[smoke] FAIL: i18n JSON script not found')
+    sys.exit(1)
+try:
+    data = json.loads(match.group(1))
+except Exception as exc:
+    print(f'[smoke] FAIL: invalid i18n JSON: {exc}')
+    sys.exit(1)
+if set(data) != {'en', 'zh'}:
+    print(f'[smoke] FAIL: language set is {set(data)}, expected en and zh')
+    sys.exit(1)
+en, zh = set(data['en']), set(data['zh'])
+if en != zh:
+    print(f'[smoke] FAIL: translation keys differ; en-only={sorted(en-zh)}, zh-only={sorted(zh-en)}')
+    sys.exit(1)
+used = set(re.findall(r'data-i18n(?:-aria)?="([^"]+)"', src))
+missing = used - en
+if missing:
+    print(f'[smoke] FAIL: translation keys used but undefined: {sorted(missing)}')
+    sys.exit(1)
+empty = [key for key in en if not isinstance(data['en'][key], str) or not data['en'][key].strip() or not isinstance(data['zh'][key], str) or not data['zh'][key].strip()]
+if empty:
+    print(f'[smoke] FAIL: empty or non-string translations: {sorted(empty)}')
+    sys.exit(1)
+if len(en) < 40:
+    print(f'[smoke] FAIL: only {len(en)} paired strings; bilingual coverage is incomplete')
+    sys.exit(1)
+
+ids = set(re.findall(r'\bid="([^"]+)"', src))
+missing_targets = sorted({href for href in re.findall(r'href="#([^"]+)"', src) if href not in ids})
+if missing_targets:
+    print(f'[smoke] FAIL: internal links have no targets: {missing_targets}')
+    sys.exit(1)
+
+scripts = re.findall(r'<script([^>]*)>(.*?)</script>', src, re.S)
+for attrs, script in scripts:
+    if 'application/json' in attrs or 'application/ld+json' in attrs:
+        continue
+    check = subprocess.run(['node', '--check'], input=script, text=True, capture_output=True)
+    if check.returncode:
+        print('[smoke] FAIL: executable JavaScript syntax error:', check.stderr.strip())
+        sys.exit(1)
+EOF
+
+# 7. External links (optional)
 if [ "${1:-}" = "--online" ]; then
   grep -o 'href="https\?://[^"]*"' index.html | sed 's/^href="//; s/"$//' | sort -u | while read -r u; do
     code=$(curl -s -o /dev/null -w "%{http_code}" -L -m 12 "$u")
