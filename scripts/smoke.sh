@@ -13,9 +13,10 @@ grep -q "·" index.html && fail "middle-dot separator found"
 grep -q "BirdCLEF++" index.html && fail "wrong competition name BirdCLEF++"
 grep -Eqi "second-year|二年级|summer research|research internship|暑研" index.html && fail "outdated year or summer-research copy found"
 grep -q "Curious about the score behind the score" index.html && fail "retired slogan found"
+grep -q "Selected Projects\|代表项目" index.html && fail "retired projects section found"
 
 # 2. Required anchors and strings
-for id in about research projects skills contact main; do
+for id in about research kaggle skills contact main; do
   grep -q "id=\"$id\"" index.html || fail "missing anchor id=$id"
 done
 grep -q "<title>SHI Haochen" index.html || fail "title changed unexpectedly"
@@ -24,7 +25,8 @@ grep -q "659 of 6,807\|659 / 6,807" index.html || fail "PTCG Kaggle rank missing
 grep -q "EMNLP 2026" index.html || fail "SurveyLens acceptance missing"
 grep -q "https://clef-staging.pages.dev/paper364.pdf" index.html || fail "published CLEF paper URL missing"
 grep -q "assets/ptcg-ai-battle-bronze-2026.png" index.html || fail "PTCG certificate missing"
-[ "$(grep -o 'href="https://home.shc66.com"' index.html | wc -l | tr -d ' ')" -eq 6 ] || fail "project links do not all point to home.shc66.com"
+grep -q 'href="https://home.shc66.com"' index.html || fail "home project directory link missing"
+grep -q 'id="kaggle"' index.html || fail "dedicated Kaggle section missing"
 
 # 3. Local asset references all exist
 grep -o 'href="assets/[^"]*"\|src="assets/[^"]*"' index.html | sed 's/^[a-z]*="//; s/"$//' | sort -u | while read -r f; do
